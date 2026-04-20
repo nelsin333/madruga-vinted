@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Madruga × Vinted</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0d0d;--s:#161616;--s2:#1f1f1f;--b:#2a2a2a;--ac:#c8f03e;--ac2:#ff6b35;--tx:#f0f0f0;--mu:#666;--ok:#4ade80;--dn:#f87171;--wn:#fbbf24;--wa:#25D366;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;min-height:100vh;padding-bottom:70px;}
+header{background:var(--s);border-bottom:1px solid var(--b);padding:13px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--ac);}
+.logo span{color:var(--tx);}
+.tabs{display:flex;background:var(--s);border-bottom:1px solid var(--b);position:sticky;top:48px;z-index:99;overflow-x:auto;}
+.tab{flex:1;min-width:52px;padding:11px 3px;text-align:center;font-size:9px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:var(--mu);cursor:pointer;border-bottom:2px solid transparent;font-family:'Space Mono',monospace;white-space:nowrap;}
+.tab.active{color:var(--ac);border-bottom-color:var(--ac);}
+.panel{display:none;padding:14px;}
+.panel.active{display:block;}
+.card{background:var(--s);border:1px solid var(--b);border-radius:12px;padding:16px;margin-bottom:12px;}
+.card h2{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;color:var(--ac);margin-bottom:10px;}
+.card p{font-size:12px;color:var(--mu);line-height:1.6;margin-bottom:12px;}
+.f{margin-bottom:11px;}
+.f label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--mu);margin-bottom:5px;font-family:'Space Mono',monospace;}
+.f input,.f select,.f textarea{width:100%;background:var(--s2);border:1px solid var(--b);border-radius:8px;color:var(--tx);padding:11px 13px;font-size:15px;font-family:'DM Sans',sans-serif;outline:none;-webkit-appearance:none;}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--ac);}
+.f input.big{font-size:24px;font-weight:700;padding:14px 13px;}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.btn{width:100%;padding:13px;border-radius:8px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'Space Mono',monospace;cursor:pointer;border:none;}
+.ba{background:var(--ac);color:#0d0d0d;}.ba:active{opacity:.75;}
+.bo{background:transparent;border:1px solid var(--b);color:var(--tx);margin-top:8px;}
+.bdl{background:transparent;border:1px solid var(--dn);color:var(--dn);margin-top:8px;font-size:10px;width:100%;padding:11px;border-radius:8px;font-family:'Space Mono',monospace;cursor:pointer;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.al{border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:13px;font-weight:600;line-height:1.5;display:none;}
+.al.ok{display:block;background:#0f2200;border:1px solid var(--ok);color:var(--ok);}
+.al.wn{display:block;background:#2a1f00;border:1px solid var(--wn);color:var(--wn);}
+.al.no{display:block;background:#2a0000;border:1px solid var(--dn);color:var(--dn);}
+.rb{background:var(--s2);border:1px solid var(--ac);border-radius:12px;padding:16px;margin-top:12px;display:none;}
+.rb.show{display:block;}
+.rl{font-size:10px;font-family:'Space Mono',monospace;color:var(--mu);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.rg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.ri .rll{font-size:10px;font-family:'Space Mono',monospace;color:var(--mu);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
+.ri .rv{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;}
+.rv.c{color:var(--mu);font-size:18px;}.rv.mn{color:var(--ac);}.rv.mx{color:var(--ac2);}
+.badge{display:inline-block;background:var(--s);border:1px solid var(--b);border-radius:6px;padding:5px 10px;font-size:10px;font-family:'Space Mono',monospace;color:var(--mu);margin-bottom:11px;}
+.btnr{width:100%;padding:13px;background:var(--ac);color:#0d0d0d;border:none;border-radius:8px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'Space Mono',monospace;cursor:pointer;}
+.fv{background:var(--s2);border:1px solid var(--b);border-radius:12px;padding:16px;margin-top:12px;display:none;}
+.fv.show{display:block;}
+.fv h3{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;color:var(--ac2);margin-bottom:11px;}
+.ltop{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+.lnum{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--ac);line-height:1;}
+.ll{font-size:10px;font-family:'Space Mono',monospace;color:var(--mu);text-transform:uppercase;letter-spacing:1px;}
+.ls{font-size:13px;color:var(--tx);margin-top:2px;}
+.pb{height:5px;background:var(--s2);border-radius:99px;overflow:hidden;margin:10px 0;}
+.pf{height:100%;background:var(--ac);border-radius:99px;transition:width .4s;}
+.lgo{background:#1a2e00;border:1px solid var(--ac);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--ac);font-weight:700;display:none;margin-top:8px;}
+.lgo.show{display:block;}
+.tots{display:flex;border:1px solid var(--b);border-radius:10px;overflow:hidden;margin-bottom:12px;}
+.ti{flex:1;padding:11px 6px;text-align:center;border-right:1px solid var(--b);}
+.ti:last-child{border-right:none;}
+.tv{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--ac);letter-spacing:1px;}
+.tl{font-size:9px;font-family:'Space Mono',monospace;color:var(--mu);text-transform:uppercase;margin-top:2px;}
+.vc{background:var(--s);border:1px solid var(--b);border-radius:10px;padding:12px 13px;margin-bottom:8px;position:relative;}
+.vh{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;}
+.vp{font-weight:600;font-size:13px;flex:1;padding-right:26px;line-height:1.3;}
+.vr{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--ac);letter-spacing:1px;}
+.vf{display:flex;justify-content:space-between;align-items:center;}
+.vcc{font-size:11px;color:var(--mu);font-family:'Space Mono',monospace;}
+.vm{font-size:11px;font-weight:700;}
+.vx{position:absolute;top:10px;right:10px;background:none;border:none;color:var(--mu);font-size:18px;cursor:pointer;padding:4px;line-height:1;}
+.empty{text-align:center;padding:36px 16px;color:var(--mu);}
+.empty .ei{font-size:32px;margin-bottom:8px;}
+.empty p{font-size:12px;line-height:1.6;}
+.sl{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--mu);font-family:'Space Mono',monospace;margin-bottom:10px;}
+.pi{display:flex;justify-content:space-between;align-items:center;background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:10px 13px;margin-bottom:8px;}
+.pn{font-size:13px;font-weight:600;}.pg{font-size:11px;color:var(--mu);font-family:'Space Mono',monospace;margin-top:2px;}
+.pdl{background:none;border:none;color:var(--mu);font-size:18px;cursor:pointer;padding:4px;}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.sb{background:var(--s2);border:1px solid var(--b);border-radius:10px;padding:12px;text-align:center;}
+.sv{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;}
+.slv{font-size:9px;font-family:'Space Mono',monospace;color:var(--mu);text-transform:uppercase;margin-top:2px;}
+.ab{border-radius:10px;padding:13px 15px;margin-bottom:12px;border:1px solid var(--b);background:var(--s2);}
+.al2{font-size:10px;font-family:'Space Mono',monospace;color:var(--mu);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;}
+.av{font-size:13px;line-height:1.7;}
+.cm{display:flex;gap:8px;}
+.cb{flex:1;background:var(--s2);border:1px solid var(--b);border-radius:10px;padding:12px;}
+.cn{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;margin-bottom:7px;}
+.cd{font-size:11px;line-height:1.9;}
+.rt{width:100%;border-collapse:collapse;font-size:12px;}
+.rt th{background:var(--s2);padding:9px 6px;text-align:center;font-family:'Space Mono',monospace;font-size:9px;color:var(--mu);border-bottom:1px solid var(--b);text-transform:uppercase;}
+.rt td{padding:9px 6px;text-align:center;border-bottom:1px solid var(--b);}
+.rt tr:hover td{background:var(--s2);}
+.tmn{color:var(--ac);font-weight:700;}.tmx{color:var(--ac2);font-weight:700;}
+.tok{color:var(--ok);font-weight:700;}.tno{color:var(--dn);}
+
+/* PEÇAS */
+.peca-card{background:var(–s);border:1px solid var(–b);border-radius:12px;padding:14px;margin-bottom:10px;}
+.peca-card.vendida{border-color:var(–dn);background:#150000;}
+.pc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.pc-nome{font-weight:700;font-size:14px;flex:1;padding-right:8px;line-height:1.3;}
+.pc-preco{font-family:‘Bebas Neue’,sans-serif;font-size:24px;color:var(–ac);letter-spacing:1px;}
+.pc-preco.v{color:var(–dn);}
+.pc-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.tag{background:var(–s2);border:1px solid var(–b);border-radius:6px;padding:4px 8px;font-size:10px;font-family:‘Space Mono’,monospace;color:var(–mu);}
+.tag.hi{color:var(–ac);border-color:var(–ac);}
+.tag.comp{color:var(–wn);border-color:var(–wn);}
+.pc-actions{display:flex;gap:6px;}
+.btn-vnd{flex:1;padding:10px;background:var(–dn);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;font-family:‘Space Mono’,monospace;cursor:pointer;}
+.btn-wpp{flex:1;padding:10px;background:var(–wa);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;font-family:‘Space Mono’,monospace;cursor:pointer;}
+.btn-del-p{padding:10px 12px;background:transparent;border:1px solid var(–b);border-radius:8px;color:var(–mu);font-size:14px;cursor:pointer;}
+.vnd-badge{background:#2a0000;border:1px solid var(–dn);border-radius:6px;padding:5px 10px;font-size:11px;color:var(–dn);font-weight:700;font-family:‘Space Mono’,monospace;margin-bottom:8px;}
+.form-peca{background:var(–s2);border:1px solid var(–b);border-radius:12px;padding:16px;margin-bottom:14px;display:none;}
+.form-peca.show{display:block;}
+.form-peca h3{font-family:‘Bebas Neue’,sans-serif;font-size:15px;letter-spacing:1px;color:var(–ac);margin-bottom:12px;}
+.tabs-st{display:flex;gap:8px;margin-bottom:14px;}
+.tab-st{flex:1;padding:8px;text-align:center;border-radius:8px;font-size:11px;font-weight:700;font-family:‘Space Mono’,monospace;cursor:pointer;border:1px solid var(–b);color:var(–mu);text-transform:uppercase;letter-spacing:.5px;}
+.tab-st.active{background:var(–ac);color:#0d0d0d;border-color:var(–ac);}
+
+/* TAMANHOS */
+.conv-section{margin-bottom:16px;}
+.conv-title{font-family:‘Bebas Neue’,sans-serif;font-size:15px;letter-spacing:1px;color:var(–ac2);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(–b);}
+.conv-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:4px;}
+.conv-table th{background:var(–s2);padding:8px 6px;text-align:center;font-family:‘Space Mono’,monospace;font-size:9px;color:var(–mu);border-bottom:1px solid var(–b);text-transform:uppercase;letter-spacing:.5px;}
+.conv-table td{padding:8px 6px;text-align:center;border-bottom:1px solid var(–b);font-size:12px;}
+.conv-table tr:hover td{background:var(–s2);}
+.conv-table .br{color:var(–ac);font-weight:700;}
+.conv-table .eu{color:var(–ac2);font-weight:700;}
+.conv-note{font-size:10px;color:var(–mu);font-style:italic;margin-top:4px;margin-bottom:14px;}
+
+/* BUSCA TAMANHO */
+.size-search{display:flex;gap:8px;margin-bottom:14px;}
+.size-search input{flex:1;background:var(–s2);border:1px solid var(–b);border-radius:8px;color:var(–tx);padding:11px 13px;font-size:15px;font-family:‘DM Sans’,sans-serif;outline:none;-webkit-appearance:none;}
+.size-search input:focus{border-color:var(–ac);}
+.size-result{background:var(–s2);border:1px solid var(–ac);border-radius:10px;padding:14px;margin-bottom:14px;display:none;}
+.size-result.show{display:block;}
+.size-result .sr-titulo{font-size:10px;font-family:‘Space Mono’,monospace;color:var(–mu);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.sr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.sr-item{text-align:center;background:var(–s);border:1px solid var(–b);border-radius:8px;padding:10px 6px;}
+.sr-val{font-family:‘Bebas Neue’,sans-serif;font-size:22px;letter-spacing:1px;}
+.sr-label{font-size:9px;font-family:‘Space Mono’,monospace;color:var(–mu);text-transform:uppercase;margin-top:2px;}
+</style>
+
+</head>
+<body>
+
+<header>
+  <div class="logo">MADRUGA <span>× VINTED</span></div>
+  <div style="font-size:10px;color:var(--mu);font-family:'Space Mono',monospace;">GESTOR DE LOTES</div>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="go('calc')">💶 Calcular</div>
+  <div class="tab" onclick="go('pecas')">📋 Peças</div>
+  <div class="tab" onclick="go('lote')">🚀 Lote</div>
+  <div class="tab" onclick="go('peso')">⚖️ Peso</div>
+  <div class="tab" onclick="go('tam')">📏 Tamanhos</div>
+  <div class="tab" onclick="go('tabela')">📊 Tabela</div>
+</div>
+
+<!-- CALCULAR -->
+
+<div class="panel active" id="panel-calc">
+  <div class="card">
+    <h2>💶 Calcular Preço de Venda</h2>
+    <p>Olha os valores no Vinted e digita aqui. Total acima de €10 = deixa passar.</p>
+    <div class="f"><label>Nome da peça (opcional)</label><input type="text" id="f-nome" placeholder="ex: Polo Sergio Tacchini M"></div>
+    <div class="f"><label>💰 Preço da peça (€)</label><input type="number" id="f-preco" class="big" placeholder="5.00" step="0.50" min="0" inputmode="decimal"></div>
+    <div class="r2">
+      <div class="f"><label>Frete (€)</label><input type="number" id="f-frete" value="1.50" step="0.50" min="0" inputmode="decimal"></div>
+      <div class="f"><label>Taxa prot. (€)</label><input type="number" id="f-taxa" value="0.70" step="0.10" min="0" inputmode="decimal"></div>
+    </div>
+    <div class="al" id="al-lim"></div>
+    <button class="btn ba" id="btn-calc" onclick="calcular()">Calcular Preço</button>
+  </div>
+  <div class="rb" id="rb">
+    <div class="rl">Resultado</div>
+    <div class="badge" id="r-badge">—</div>
+    <div class="rg">
+      <div class="ri"><div class="rll">Custo total</div><div class="rv c" id="r-ct">—</div></div>
+      <div class="ri"><div class="rll">Convertido</div><div class="rv c" id="r-cv">—</div></div>
+      <div class="ri"><div class="rll">Venda mín</div><div class="rv mn" id="r-mn">—</div></div>
+      <div class="ri"><div class="rll">Venda máx</div><div class="rv mx" id="r-mx">—</div></div>
+    </div>
+    <div id="r-nome" style="font-size:12px;color:var(--mu);font-style:italic;margin-bottom:12px;"></div>
+    <button class="btnr" onclick="abrirFV()">+ Registrar Venda no Lote</button>
+  </div>
+  <div class="fv" id="fvenda">
+    <h3>📝 Registrar Venda</h3>
+    <div class="f"><label>Peça</label><input type="text" id="fv-p" placeholder="ex: Polo Sergio Tacchini M"></div>
+    <div class="f"><label>Comprador (@ ou nome)</label><input type="text" id="fv-c" placeholder="ex: @joao ou João Silva"></div>
+    <div class="f"><label>Preço vendido (R$)</label><input type="number" id="fv-r" placeholder="ex: 150" inputmode="numeric"></div>
+    <button class="btn ba" onclick="salvar()">✅ Confirmar Venda</button>
+    <button class="btn bo" onclick="fecharFV()">Cancelar</button>
+  </div>
+</div>
+
+<!-- PEÇAS ANUNCIADAS -->
+
+<div class="panel" id="panel-pecas">
+  <div class="card">
+    <h2>📋 Peças Anunciadas</h2>
+    <p>Cadastre o que você postou no Vinted. Quando vender, toca "Vendido" e o app abre o WhatsApp com mensagem pronta pro grupo.</p>
+    <button class="btn ba" onclick="toggleFormPeca()">+ Cadastrar Nova Peça</button>
+  </div>
+
+  <div class="form-peca" id="form-peca">
+    <h3>Nova Peça</h3>
+    <div class="f"><label>Nome da peça</label><input type="text" id="np-nome" placeholder="ex: Polo Sergio Tacchini M branca"></div>
+    <div class="r2">
+      <div class="f"><label>Tamanho (EU)</label><input type="text" id="np-tam" placeholder="ex: M, 46, S"></div>
+      <div class="f"><label>Tam. Brasil</label><input type="text" id="np-tambr" placeholder="ex: M, GG, 38"></div>
+    </div>
+    <div class="r2">
+      <div class="f"><label>Preço venda R$</label><input type="number" id="np-preco" placeholder="150" inputmode="numeric"></div>
+      <div class="f"><label>Custo total €</label><input type="number" id="np-custo" placeholder="7.20" step="0.10" inputmode="decimal"></div>
+    </div>
+    <div class="f"><label>Comprador interessado (nome)</label><input type="text" id="np-comprador" placeholder="ex: João Silva / @joao"></div>
+    <div class="f"><label>Telefone do comprador</label><input type="tel" id="np-tel" placeholder="ex: 11999998888" inputmode="numeric"></div>
+    <div class="f"><label>Link Vinted (opcional)</label><input type="text" id="np-link" placeholder="https://www.vinted.fr/items/..."></div>
+    <button class="btn ba" onclick="cadastrarPeca()">✅ Cadastrar</button>
+    <button class="btn bo" onclick="toggleFormPeca()">Cancelar</button>
+  </div>
+
+  <div class="tabs-st">
+    <div class="tab-st active" onclick="filtrar('ativas')" id="tab-at">✅ Ativas</div>
+    <div class="tab-st" onclick="filtrar('vendidas')" id="tab-vd">🔴 Vendidas</div>
+  </div>
+  <div id="pecas-list"></div>
+</div>
+
+<!-- LOTE -->
+
+<div class="panel" id="panel-lote">
+  <div class="card">
+    <div class="ltop">
+      <div class="lnum" id="lnum">0</div>
+      <div><div class="ll">Peças no lote</div><div class="ls" id="lsub">Acumule 7–8 peças para enviar</div></div>
+    </div>
+    <div class="pb"><div class="pf" id="pfill" style="width:0%"></div></div>
+    <div class="lgo" id="lgo">🚀 PRONTO! Monte o pacote e envie!</div>
+  </div>
+  <div class="tots" id="tots" style="display:none">
+    <div class="ti"><div class="tv" id="ta">R$0</div><div class="tl">Arrecadado</div></div>
+    <div class="ti"><div class="tv" id="tc">R$0</div><div class="tl">Custo</div></div>
+    <div class="ti"><div class="tv" id="tlu" style="color:var(--ok)">R$0</div><div class="tl">Lucro</div></div>
+  </div>
+  <div class="sl">Peças vendidas</div>
+  <div id="vlist"></div>
+  <button class="bdl" onclick="limpar()">🗑 Limpar lote (após enviar)</button>
+</div>
+
+<!-- PESO -->
+
+<div class="panel" id="panel-peso">
+  <div class="card">
+    <h2>⚖️ Calculadora de Peso</h2>
+    <p>Adicione as peças pra estimar o peso e saber qual alfândega usar.</p>
+    <div id="plist"></div>
+    <div style="display:flex;gap:8px;align-items:flex-end;">
+      <div class="f" style="flex:1;margin:0;">
+        <label>Tipo de peça</label>
+        <select id="p-tipo" onchange="toggleCP()">
+          <option value="100">Polo / camiseta sport leve (~100g)</option>
+          <option value="180">Camiseta algodão (~180g)</option>
+          <option value="150">Shorts / bermuda (~150g)</option>
+          <option value="250">Camisa manga longa (~250g)</option>
+          <option value="300">Moletom leve (~300g)</option>
+          <option value="400">Calça esportiva / jogger (~400g)</option>
+          <option value="500">Calça jeans (~500g)</option>
+          <option value="450">Jaqueta leve (~450g)</option>
+          <option value="700">Jaqueta pesada / bomber (~700g)</option>
+          <option value="custom">Peso personalizado...</option>
+        </select>
+      </div>
+      <button class="btn ba" style="width:auto;padding:11px 16px;" onclick="addP()">+ Add</button>
+    </div>
+    <div id="cpw" style="display:none;margin-top:8px;">
+      <div class="f"><label>Gramas</label><input type="number" id="p-cust" placeholder="ex: 350" inputmode="numeric"></div>
+    </div>
+  </div>
+  <div class="sg">
+    <div class="sb"><div class="sv" id="pt" style="color:var(--ac)">0g</div><div class="slv">Peso peças</div></div>
+    <div class="sb"><div class="sv" id="pe">300g</div><div class="slv">Com embalagem</div></div>
+  </div>
+  <div class="ab" id="ab">
+    <div class="al2">Recomendação de alfândega</div>
+    <div class="av" id="ar">Adicione peças para ver a recomendação.</div>
+  </div>
+  <div class="card" style="padding:13px;">
+    <div class="sl" style="margin-bottom:8px;">Custo estimado Redirect</div>
+    <div id="pcr">—</div>
+    <div style="font-size:10px;color:var(--mu);margin-top:6px;font-style:italic;">Base: 1,5kg = €10 = R$333 via Braza On</div>
+  </div>
+  <div class="cm">
+    <div class="cb"><div class="cn" style="color:var(--ac)">CURITIBA</div><div class="cd">✅ Mais barata<br>⚠️ Limite 2kg<br>📝 Até 4 linhas<br>📦 PAC · 10–25d</div></div>
+    <div class="cb"><div class="cn" style="color:var(--ac2)">SÃO PAULO</div><div class="cd">💰 Mais cara<br>✅ Sem limite<br>📝 6+ linhas<br>📦 EMS · 10–20d</div></div>
+  </div>
+</div>
+
+<!-- TAMANHOS -->
+
+<div class="panel" id="panel-tam">
+  <div class="card">
+    <h2>📏 Conversão de Tamanhos</h2>
+    <p>Peças da Europa têm numeração diferente. Busque pelo tamanho europeu e veja o equivalente brasileiro.</p>
+    <div class="size-search">
+      <input type="text" id="size-input" placeholder="Digite tamanho EU ex: 46, M, XL..." oninput="buscarTamanho()">
+    </div>
+    <div class="size-result" id="size-result">
+      <div class="sr-titulo" id="sr-titulo">Resultado</div>
+      <div class="sr-grid" id="sr-grid"></div>
+    </div>
+  </div>
+
+  <!-- MASCULINO ROUPAS -->
+
+  <div class="conv-section">
+    <div class="conv-title">👕 Masculino — Camisetas, Polos e Moletons</div>
+    <table class="conv-table">
+      <thead><tr><th>EU / Letra</th><th class="eu">EU Num</th><th class="br">Brasil</th><th>Peito (cm)</th></tr></thead>
+      <tbody>
+        <tr><td>XS</td><td class="eu">44</td><td class="br">PP</td><td>84–88</td></tr>
+        <tr><td>S</td><td class="eu">46</td><td class="br">P</td><td>88–92</td></tr>
+        <tr><td>M</td><td class="eu">48</td><td class="br">M</td><td>92–96</td></tr>
+        <tr><td>L</td><td class="eu">50</td><td class="br">G</td><td>96–100</td></tr>
+        <tr><td>XL</td><td class="eu">52</td><td class="br">GG</td><td>100–104</td></tr>
+        <tr><td>XXL</td><td class="eu">54</td><td class="br">XGG</td><td>104–108</td></tr>
+        <tr><td>3XL</td><td class="eu">56</td><td class="br">EXG</td><td>108–112</td></tr>
+      </tbody>
+    </table>
+    <div class="conv-note">⚡ Regra rápida: EU numérico − 2 = Brasil numérico (ex: EU 48 = BR 46)</div>
+  </div>
+
+  <!-- MASCULINO CALÇAS -->
+
+  <div class="conv-section">
+    <div class="conv-title">👖 Masculino — Calças (Waist/Cintura)</div>
+    <table class="conv-table">
+      <thead><tr><th>EU Waist (cm)</th><th>US/UK (polegadas)</th><th class="br">Brasil</th></tr></thead>
+      <tbody>
+        <tr><td>76 cm</td><td>30"</td><td class="br">38</td></tr>
+        <tr><td>80 cm</td><td>32"</td><td class="br">40</td></tr>
+        <tr><td>84 cm</td><td>34"</td><td class="br">42</td></tr>
+        <tr><td>88 cm</td><td>36"</td><td class="br">44</td></tr>
+        <tr><td>92 cm</td><td>38"</td><td class="br">46</td></tr>
+        <tr><td>96 cm</td><td>40"</td><td class="br">48</td></tr>
+        <tr><td>100 cm</td><td>42"</td><td class="br">50</td></tr>
+      </tbody>
+    </table>
+    <div class="conv-note">⚡ Regra rápida: BR = EU waist em cm ÷ 2 (ex: 84cm ÷ 2 = 42 BR)</div>
+  </div>
+
+  <!-- FEMININO ROUPAS -->
+
+  <div class="conv-section">
+    <div class="conv-title">👗 Feminino — Blusas, Vestidos e Calças</div>
+    <table class="conv-table">
+      <thead><tr><th>EU / Letra</th><th class="eu">EU Num</th><th class="br">Brasil</th><th>US/UK</th></tr></thead>
+      <tbody>
+        <tr><td>XS</td><td class="eu">32</td><td class="br">PP (34)</td><td>0 / 4</td></tr>
+        <tr><td>S</td><td class="eu">34–36</td><td class="br">P (36)</td><td>2–4 / 6</td></tr>
+        <tr><td>M</td><td class="eu">38</td><td class="br">M (38)</td><td>8 / 10</td></tr>
+        <tr><td>L</td><td class="eu">40</td><td class="br">G (40)</td><td>10–12 / 12</td></tr>
+        <tr><td>XL</td><td class="eu">42</td><td class="br">GG (42)</td><td>14 / 14</td></tr>
+        <tr><td>XXL</td><td class="eu">44–46</td><td class="br">XGG (44)</td><td>16–18 / 18</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CALÇADOS -->
+
+  <div class="conv-section">
+    <div class="conv-title">👟 Calçados Masculinos (Tênis/Sapato)</div>
+    <table class="conv-table">
+      <thead><tr><th class="eu">EU</th><th class="br">Brasil</th><th>US</th><th>UK</th><th>cm</th></tr></thead>
+      <tbody>
+        <tr><td class="eu">39</td><td class="br">38</td><td>6.5</td><td>6</td><td>24.5</td></tr>
+        <tr><td class="eu">40</td><td class="br">39</td><td>7</td><td>6.5</td><td>25</td></tr>
+        <tr><td class="eu">41</td><td class="br">40</td><td>8</td><td>7.5</td><td>25.5</td></tr>
+        <tr><td class="eu">42</td><td class="br">41</td><td>8.5</td><td>8</td><td>26.5</td></tr>
+        <tr><td class="eu">43</td><td class="br">42</td><td>9.5</td><td>9</td><td>27</td></tr>
+        <tr><td class="eu">44</td><td class="br">43</td><td>10</td><td>9.5</td><td>27.5</td></tr>
+        <tr><td class="eu">45</td><td class="br">44</td><td>11</td><td>10.5</td><td>28.5</td></tr>
+        <tr><td class="eu">46</td><td class="br">45</td><td>12</td><td>11</td><td>29</td></tr>
+      </tbody>
+    </table>
+    <div class="conv-note">⚡ Regra rápida: BR = EU − 1 (ex: EU 42 = BR 41)</div>
+  </div>
+
+  <!-- CALÇADOS FEMININOS -->
+
+  <div class="conv-section">
+    <div class="conv-title">👠 Calçados Femininos</div>
+    <table class="conv-table">
+      <thead><tr><th class="eu">EU</th><th class="br">Brasil</th><th>US</th><th>UK</th></tr></thead>
+      <tbody>
+        <tr><td class="eu">35</td><td class="br">33–34</td><td>4.5</td><td>2.5</td></tr>
+        <tr><td class="eu">36</td><td class="br">35</td><td>5.5</td><td>3.5</td></tr>
+        <tr><td class="eu">37</td><td class="br">36</td><td>6</td><td>4</td></tr>
+        <tr><td class="eu">38</td><td class="br">37</td><td>7</td><td>5</td></tr>
+        <tr><td class="eu">39</td><td class="br">38</td><td>8</td><td>6</td></tr>
+        <tr><td class="eu">40</td><td class="br">39</td><td>9</td><td>7</td></tr>
+        <tr><td class="eu">41</td><td class="br">40–41</td><td>9.5</td><td>7.5</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- TABELA PREÇOS -->
+
+<div class="panel" id="panel-tabela">
+  <div class="sl">Referência — ≤€10 total = ✅ vale pegar</div>
+  <div class="card" style="padding:0;overflow:hidden;">
+    <table class="rt">
+      <thead><tr><th>Custo €</th><th>Conv R$</th><th>Mín R$</th><th>Máx R$</th><th>Nota €</th><th>Vale?</th></tr></thead>
+      <tbody id="tbod"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+// ── STORAGE HELPER ──
+function saveData(){
+  try{
+    localStorage.setItem('mv_vendas',JSON.stringify(vendas));
+    localStorage.setItem('mv_anuncios',JSON.stringify(anuncios));
+    localStorage.setItem('mv_peso',JSON.stringify(pecasPeso));
+  }catch(e){}
+}
+function loadData(){
+  try{
+    var v=localStorage.getItem('mv_vendas');
+    var a=localStorage.getItem('mv_anuncios');
+    var p=localStorage.getItem('mv_peso');
+    if(v) vendas=JSON.parse(v);
+    if(a) anuncios=JSON.parse(a);
+    if(p) pecasPeso=JSON.parse(p);
+  }catch(e){}
+}
+
+// ── TABELA PREÇOS ──
+var TB=[
+  {a:5,cv:62,mn:100,mx:150,nt:1},{a:10,cv:92,mn:130,mx:190,nt:2},
+  {a:15,cv:123,mn:160,mx:220,nt:5},{a:20,cv:155,mn:195,mx:250,nt:5},
+  {a:25,cv:186,mn:230,mx:280,nt:5},{a:30,cv:216,mn:260,mx:310,nt:5},
+  {a:35,cv:248,mn:290,mx:350,nt:10},{a:40,cv:273,mn:310,mx:370,nt:10},
+  {a:45,cv:309,mn:350,mx:410,nt:10},{a:50,cv:338,mn:380,mx:440,nt:10},
+  {a:60,cv:402,mn:450,mx:550,nt:15},{a:80,cv:528,mn:580,mx:650,nt:20},
+  {a:100,cv:650,mn:720,mx:800,nt:30}
+];
+var tbod=document.getElementById('tbod');
+TB.forEach(function(r){
+  var ok=r.a<=10;
+  tbod.innerHTML+='<tr><td class="'+(ok?'tok':'tno')+'">€'+r.a+'</td><td>R$'+r.cv+'</td><td class="tmn">R$'+r.mn+'</td><td class="tmx">R$'+r.mx+'</td><td>€'+r.nt+'</td><td>'+(ok?'✅':'❌')+'</td></tr>';
+});
+
+// ── STATE ──
+var vendas=[], cc=null, pecasPeso=[], anuncios=[], filtroAtual='ativas';
+loadData();
+
+// ── TABS ──
+function go(n){
+  var ns=['calc','pecas','lote','peso','tam','tabela'];
+  document.querySelectorAll('.tab').forEach(function(t,i){t.classList.toggle('active',ns[i]===n);});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('panel-'+n).classList.add('active');
+  if(n==='lote') renderV();
+  if(n==='pecas') renderAnuncios();
+}
+
+// ── CALCULAR ──
+function getFaixa(e){return TB.find(function(f){return e<=f.a;})||TB[TB.length-1];}
+function onInput(){
+  var p=parseFloat(document.getElementById('f-preco').value)||0;
+  var fr=parseFloat(document.getElementById('f-frete').value)||0;
+  var tx=parseFloat(document.getElementById('f-taxa').value)||0;
+  var tot=p+fr+tx;
+  var el=document.getElementById('al-lim');
+  if(!p){el.className='al';return;}
+  if(tot<=8){el.className='al ok';el.textContent='✅ Total €'+tot.toFixed(2)+' — Ótimo! Pega essa.';}
+  else if(tot<=10){el.className='al wn';el.textContent='⚠️ Total €'+tot.toFixed(2)+' — Na borda. Pode pegar.';}
+  else{el.className='al no';el.textContent='❌ Total €'+tot.toFixed(2)+' — Passa de €10. DEIXA PASSAR.';}
+}
+document.getElementById('f-preco').addEventListener('input',onInput);
+document.getElementById('f-frete').addEventListener('input',onInput);
+document.getElementById('f-taxa').addEventListener('input',onInput);
+
+function calcular(){
+  var nome=document.getElementById('f-nome').value.trim();
+  var preco=parseFloat(document.getElementById('f-preco').value);
+  var frete=parseFloat(document.getElementById('f-frete').value)||1.50;
+  var taxa=parseFloat(document.getElementById('f-taxa').value)||0.70;
+  var inp=document.getElementById('f-preco');
+  if(!preco||preco<=0){inp.style.borderColor='var(--dn)';setTimeout(function(){inp.style.borderColor='';},1500);return;}
+  var tot=preco+frete+taxa;
+  var f=getFaixa(tot);
+  cc={tot:tot,f:f,nome:nome};
+  document.getElementById('r-ct').textContent='€'+tot.toFixed(2);
+  document.getElementById('r-cv').textContent='R$'+f.cv;
+  document.getElementById('r-mn').textContent='R$'+f.mn;
+  document.getElementById('r-mx').textContent='R$'+f.mx;
+  document.getElementById('r-badge').textContent='Faixa ≤€'+f.a+' · Nota: €'+f.nt;
+  document.getElementById('r-nome').textContent=nome;
+  if(nome) document.getElementById('fv-p').value=nome;
+  document.getElementById('rb').classList.add('show');
+  document.getElementById('fvenda').classList.remove('show');
+}
+function abrirFV(){document.getElementById('fvenda').classList.add('show');document.getElementById('fv-c').focus();}
+function fecharFV(){document.getElementById('fvenda').classList.remove('show');}
+function salvar(){
+  var p=document.getElementById('fv-p').value.trim();
+  var c=document.getElementById('fv-c').value.trim();
+  var r=parseFloat(document.getElementById('fv-r').value);
+  if(!p||!c||!r){alert('Preencha: peça, comprador e preço.');return;}
+  vendas.push({id:Date.now(),peca:p,comp:c,preco:r,cRS:cc?cc.f.cv:0,data:new Date().toLocaleDateString('pt-BR')});
+  saveData();
+  document.getElementById('fvenda').classList.remove('show');
+  document.getElementById('rb').classList.remove('show');
+  document.getElementById('al-lim').className='al';
+  document.getElementById('f-nome').value='';document.getElementById('f-preco').value='';
+  document.getElementById('fv-p').value='';document.getElementById('fv-c').value='';document.getElementById('fv-r').value='';
+  cc=null;
+  var btn=document.getElementById('btn-calc');btn.textContent='✅ Venda salva!';
+  setTimeout(function(){btn.textContent='Calcular Preço';},2000);
+  renderV();
+}
+
+// ── LOTE ──
+var META=7;
+function renderV(){
+  var n=vendas.length;
+  document.getElementById('lnum').textContent=n;
+  document.getElementById('pfill').style.width=Math.min(100,(n/META)*100)+'%';
+  document.getElementById('lgo').classList.toggle('show',n>=META);
+  document.getElementById('lsub').textContent=n>=META?'Hora de montar o pacote! 🎉':'Faltam '+(META-n)+' peça(s)';
+  var list=document.getElementById('vlist');
+  var tots=document.getElementById('tots');
+  if(n===0){tots.style.display='none';list.innerHTML='<div class="empty"><div class="ei">📦</div><p>Nenhuma venda ainda.</p></div>';return;}
+  tots.style.display='flex';
+  var ar=vendas.reduce(function(s,v){return s+v.preco;},0);
+  var cu=vendas.reduce(function(s,v){return s+v.cRS;},0);
+  var lu=ar-cu;
+  document.getElementById('ta').textContent='R$'+ar;
+  document.getElementById('tc').textContent='R$'+cu;
+  document.getElementById('tlu').textContent='R$'+lu;
+  document.getElementById('tlu').style.color=lu>=0?'var(--ok)':'var(--dn)';
+  list.innerHTML=vendas.map(function(v){
+    var m=v.preco-v.cRS;
+    return '<div class="vc"><button class="vx" onclick="delV('+v.id+')">×</button><div class="vh"><div class="vp">'+v.peca+'</div><div class="vr">R$'+v.preco+'</div></div><div class="vf"><div class="vcc">👤 '+v.comp+' · '+v.data+'</div><div class="vm" style="color:'+(m>=0?'var(--ok)':'var(--dn)')+';">'+(m>=0?'+':'')+'R$'+m+'</div></div></div>';
+  }).join('');
+}
+function delV(id){if(!confirm('Remover esta venda?'))return;vendas=vendas.filter(function(v){return v.id!==id;});saveData();renderV();}
+function limpar(){if(!confirm('Limpar todas as vendas? Só após enviar o pacote!'))return;vendas=[];saveData();renderV();}
+renderV();
+
+// ── PEÇAS ANUNCIADAS ──
+function toggleFormPeca(){
+  var f=document.getElementById('form-peca');
+  f.classList.toggle('show');
+  if(f.classList.contains('show')) document.getElementById('np-nome').focus();
+}
+function cadastrarPeca(){
+  var nome=document.getElementById('np-nome').value.trim();
+  if(!nome){alert('Digite o nome da peça.');return;}
+  anuncios.push({
+    id:Date.now(),
+    nome:nome,
+    tam:document.getElementById('np-tam').value.trim(),
+    tambr:document.getElementById('np-tambr').value.trim(),
+    preco:parseFloat(document.getElementById('np-preco').value)||0,
+    custo:parseFloat(document.getElementById('np-custo').value)||0,
+    comprador:document.getElementById('np-comprador').value.trim(),
+    tel:document.getElementById('np-tel').value.trim(),
+    link:document.getElementById('np-link').value.trim(),
+    vendida:false,dataVenda:null
+  });
+  ['np-nome','np-tam','np-tambr','np-preco','np-custo','np-comprador','np-tel','np-link'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('form-peca').classList.remove('show');
+  saveData();
+  renderAnuncios();
+}
+function marcarVendida(id){
+  var p=anuncios.find(function(a){return a.id===id;});
+  if(!p) return;
+  p.vendida=true;p.dataVenda=new Date().toLocaleDateString('pt-BR');
+  saveData();renderAnuncios();
+  var msg='🔴 *PEÇA VENDIDA — REMOVER DO GRUPO*\n\n';
+  msg+='📦 *'+p.nome+'*';
+  if(p.tam) msg+='\n📏 Tam EU: '+p.tam+(p.tambr?' → BR: '+p.tambr:'');
+  if(p.preco) msg+='\n💰 Vendida por: R$'+p.preco;
+  if(p.comprador) msg+='\n👤 Comprador: '+p.comprador;
+  msg+='\n\n✅ Essa peça foi vendida no Vinted. Por favor, *remova do grupo de importação!*\n\n_Madruga Drop_';
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+}
+function reabrirPeca(id){
+  var p=anuncios.find(function(a){return a.id===id;});
+  if(!p||!confirm('Reabrir como ativa?'))return;
+  p.vendida=false;p.dataVenda=null;saveData();renderAnuncios();
+}
+function deletarAnuncio(id){
+  if(!confirm('Remover esta peça?'))return;
+  anuncios=anuncios.filter(function(a){return a.id!==id;});saveData();renderAnuncios();
+}
+function abrirWpp(id){
+  var p=anuncios.find(function(a){return a.id===id;});
+  if(!p) return;
+  var msg='🔴 *PEÇA VENDIDA — REMOVER DO GRUPO*\n\n';
+  msg+='📦 *'+p.nome+'*';
+  if(p.tam) msg+='\n📏 Tam EU: '+p.tam+(p.tambr?' → BR: '+p.tambr:'');
+  if(p.preco) msg+='\n💰 Vendida por: R$'+p.preco;
+  if(p.comprador) msg+='\n👤 Comprador: '+p.comprador;
+  msg+='\n\n✅ Essa peça foi vendida no Vinted. Por favor, *remova do grupo de importação!*\n\n_Madruga Drop_';
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+}
+function chamarComprador(id){
+  var p=anuncios.find(function(a){return a.id===id;});
+  if(!p||!p.tel) return;
+  var tel=p.tel.replace(/\D/g,'');
+  if(tel.length<=11) tel='55'+tel;
+  var msg='Olá! Vi que você tinha interesse na peça *'+p.nome+'*'+(p.tam?' (Tam EU '+p.tam+(p.tambr?' / BR '+p.tambr:'')+')'):'')+'.\n\nAinda está disponível! R$'+(p.preco||'—')+'\n\n_Madruga Drop_';
+  window.open('https://wa.me/'+tel+'?text='+encodeURIComponent(msg),'_blank');
+}
+function filtrar(f){
+  filtroAtual=f;
+  document.getElementById('tab-at').classList.toggle('active',f==='ativas');
+  document.getElementById('tab-vd').classList.toggle('active',f==='vendidas');
+  renderAnuncios();
+}
+function renderAnuncios(){
+  var list=document.getElementById('pecas-list');
+  var filtradas=anuncios.filter(function(a){return filtroAtual==='ativas'?!a.vendida:a.vendida;});
+  if(filtradas.length===0){
+    list.innerHTML='<div class="empty"><div class="ei">'+(filtroAtual==='ativas'?'📋':'🎉')+'</div><p>'+(filtroAtual==='ativas'?'Nenhuma peça ativa.<br>Cadastre o que você anunciou no Vinted.':'Nenhuma peça vendida ainda.')+'</p></div>';
+    return;
+  }
+  list.innerHTML=filtradas.map(function(p){
+    var vnd=p.vendida;
+    return '<div class="peca-card'+(vnd?' vendida':'')+'">'+
+      (vnd?'<div class="vnd-badge">🔴 VENDIDA · '+p.dataVenda+'</div>':'')+
+      '<div class="pc-head"><div class="pc-nome">'+p.nome+'</div><div class="pc-preco'+(vnd?' v':'')+'">'+(p.preco?'R$'+p.preco:'—')+'</div></div>'+
+      '<div class="pc-tags">'+
+        (p.tam?'<span class="tag hi">EU '+p.tam+'</span>':'')+
+        (p.tambr?'<span class="tag hi">BR '+p.tambr+'</span>':'')+
+        (p.custo?'<span class="tag">€'+p.custo+'</span>':'')+
+        (p.comprador?'<span class="tag comp">👤 '+p.comprador+'</span>':'')+
+        (p.tel?'<span class="tag comp">📱 '+p.tel+'</span>':'')+
+        (p.link?'<a href="'+p.link+'" target="_blank" style="text-decoration:none;"><span class="tag" style="color:var(--ac)">🔗 Vinted</span></a>':'')+
+      '</div>'+
+      '<div class="pc-actions">'+
+        (!vnd
+          ?'<button class="btn-vnd" onclick="marcarVendida('+p.id+')">🔴 Vendido!</button>'+
+           (p.tel?'<button class="btn-wpp" onclick="chamarComprador('+p.id+')">📲 Chamar</button>':'')
+          :'<button class="btn-wpp" onclick="abrirWpp('+p.id+')">📲 WhatsApp</button>'+
+           '<button class="btn-vnd" style="background:var(--mu);font-size:10px;" onclick="reabrirPeca('+p.id+')">↩ Reabrir</button>'
+        )+
+        '<button class="btn-del-p" onclick="deletarAnuncio('+p.id+')">🗑</button>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+renderAnuncios();
+
+// ── PESO ──
+function toggleCP(){document.getElementById('cpw').style.display=document.getElementById('p-tipo').value==='custom'?'block':'none';}
+function addP(){
+  var sel=document.getElementById('p-tipo');
+  var g,nome;
+  if(sel.value==='custom'){g=parseInt(document.getElementById('p-cust').value)||0;if(!g){alert('Digite o peso em gramas.');return;}nome='Peça personalizada';}
+  else{g=parseInt(sel.value);nome=sel.options[sel.selectedIndex].text.split('(')[0].trim();}
+  pecasPeso.push({id:Date.now(),nome:nome,g:g});saveData();renderP();
+}
+function delPeca(id){pecasPeso=pecasPeso.filter(function(p){return p.id!==id;});saveData();renderP();}
+function renderP(){
+  var list=document.getElementById('plist');
+  list.innerHTML=pecasPeso.length===0?'<div style="text-align:center;color:var(--mu);font-size:12px;padding:10px 0 14px;">Nenhuma peça adicionada.</div>':pecasPeso.map(function(p){return '<div class="pi"><div><div class="pn">'+p.nome+'</div><div class="pg">'+p.g+'g</div></div><button class="pdl" onclick="delPeca('+p.id+')">×</button></div>';}).join('');
+  calcP();
+}
+function calcP(){
+  var tot=pecasPeso.reduce(function(s,p){return s+p.g;},0);
+  var emb=tot+300;var kg=emb/1000;var n=pecasPeso.length;
+  document.getElementById('pt').textContent=tot>=1000?(tot/1000).toFixed(2)+'kg':tot+'g';
+  document.getElementById('pe').textContent=emb>=1000?(emb/1000).toFixed(2)+'kg':emb+'g';
+  if(tot>0){var eu=(kg/1.5)*10;var rs=eu*6.2;var rb=rs*1.065;document.getElementById('pcr').innerHTML='<span style="font-family:\'Bebas Neue\',sans-serif;font-size:22px;color:var(--ac)">~€'+eu.toFixed(1)+'</span> <span style="color:var(--mu);font-size:12px;">→ ~R$'+rs.toFixed(0)+' direto · R$'+rb.toFixed(0)+' via Braza</span>';}
+  else{document.getElementById('pcr').innerHTML='—';}
+  var box=document.getElementById('ab');var rec=document.getElementById('ar');
+  if(tot===0){box.style.borderColor='var(--b)';rec.textContent='Adicione peças para ver a recomendação.';}
+  else if(kg<=2&&n<=4){box.style.borderColor='var(--ok)';rec.innerHTML='✅ <strong style="color:var(--ok)">Alfândega Curitiba</strong><br>'+kg.toFixed(2)+'kg ≤ 2kg e '+n+' peça(s) ≤ 4 linhas. Mais barata!';}
+  else if(kg<=2&&n>4){box.style.borderColor='var(--wn)';rec.innerHTML='⚠️ <strong style="color:var(--wn)">Alfândega São Paulo</strong><br>Peso ok mas '+n+' peças passa das 4 linhas de Curitiba.';}
+  else{box.style.borderColor='var(--dn)';rec.innerHTML='🚨 <strong style="color:var(--dn)">São Paulo obrigatório</strong><br>'+kg.toFixed(2)+'kg > 2kg. Considere 2 pacotes.';}
+}
+renderP();
+
+// ── BUSCA TAMANHO ──
+var SIZES={
+  // masculino letra
+  'xs':  {eu:'44',br:'PP',tipo:'Masc. Roupa'},
+  's':   {eu:'46',br:'P', tipo:'Masc. Roupa'},
+  'm':   {eu:'48',br:'M', tipo:'Masc. Roupa'},
+  'l':   {eu:'50',br:'G', tipo:'Masc. Roupa'},
+  'xl':  {eu:'52',br:'GG',tipo:'Masc. Roupa'},
+  'xxl': {eu:'54',br:'XGG',tipo:'Masc. Roupa'},
+  '3xl': {eu:'56',br:'EXG',tipo:'Masc. Roupa'},
+  // masculino numérico roupa
+  '44':  {eu:'44',br:'PP',tipo:'Masc. Roupa'},
+  '46':  {eu:'46',br:'P', tipo:'Masc. Roupa'},
+  '48':  {eu:'48',br:'M', tipo:'Masc. Roupa'},
+  '50':  {eu:'50',br:'G', tipo:'Masc. Roupa'},
+  '52':  {eu:'52',br:'GG',tipo:'Masc. Roupa'},
+  '54':  {eu:'54',br:'XGG',tipo:'Masc. Roupa'},
+  '56':  {eu:'56',br:'EXG',tipo:'Masc. Roupa'},
+  // calças waist
+  '30':  {eu:'30"',br:'38',tipo:'Calça (waist)'},
+  '32':  {eu:'32"',br:'40',tipo:'Calça (waist)'},
+  '34':  {eu:'34"',br:'42',tipo:'Calça (waist)'},
+  '36':  {eu:'36"',br:'44',tipo:'Calça (waist)'},
+  '38':  {eu:'38"',br:'46',tipo:'Calça (waist)'},
+  '40':  {eu:'40"',br:'48',tipo:'Calça (waist)'},
+  '42':  {eu:'42"',br:'50',tipo:'Calça (waist)'},
+  // calçados
+  '39':  {eu:'39',br:'38',tipo:'Tênis Masc.'},
+  '41':  {eu:'41',br:'40',tipo:'Tênis Masc.'},
+  '43':  {eu:'43',br:'42',tipo:'Tênis Masc.'},
+  '45':  {eu:'45',br:'44',tipo:'Tênis Masc.'},
+};
+function buscarTamanho(){
+  var q=document.getElementById('size-input').value.trim().toLowerCase();
+  var res=document.getElementById('size-result');
+  var grid=document.getElementById('sr-grid');
+  var titulo=document.getElementById('sr-titulo');
+  if(!q){res.classList.remove('show');return;}
+  var r=SIZES[q];
+  if(r){
+    titulo.textContent='Tamanho EU '+q.toUpperCase()+' — '+r.tipo;
+    grid.innerHTML=
+      '<div class="sr-item"><div class="sr-val" style="color:var(--ac2)">'+q.toUpperCase()+'</div><div class="sr-label">EU (original)</div></div>'+
+      '<div class="sr-item"><div class="sr-val" style="color:var(--ac)">'+r.br+'</div><div class="sr-label">Brasil</div></div>'+
+      '<div class="sr-item"><div class="sr-val" style="color:var(--mu)">'+r.tipo+'</div><div class="sr-label">Categoria</div></div>';
+    res.classList.add('show');
+  }else{
+    titulo.textContent='Nada encontrado para "'+q+'"';
+    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;color:var(--mu);font-size:12px;">Tenta: XS, S, M, L, XL, XXL, 44, 46, 48... ou número de calça (30, 32...) ou tênis (39, 41...)</div>';
+    res.classList.add('show');
+  }
+}
+</script>
+
+</body>
+</html>
