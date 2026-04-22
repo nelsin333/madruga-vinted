@@ -38,9 +38,9 @@ header{background:var(–bg);border-bottom:1px solid var(–bd);padding:12px 16p
 /* FIELDS */
 .field{margin-bottom:12px;}
 .field label{display:block;font-family:‘Barlow Condensed’,sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(–gl);margin-bottom:6px;}
-.field input,.field select,.field textarea{width:100%;background:var(–s1);border:none;border-bottom:1px solid var(–bd);color:var(–w);padding:10px 8px;font-size:15px;font-family:‘Barlow’,sans-serif;outline:none;-webkit-appearance:none;border-radius:0;}
+.field input,.field select,.field textarea{width:100%;background:#111;border:none;border-bottom:1px solid var(–bd);color:var(–w);padding:10px 8px;font-size:15px;font-family:‘Barlow’,sans-serif;outline:none;-webkit-appearance:none;border-radius:0;}
 .field input:focus,.field select:focus{border-bottom-color:var(–r);}
-.field input.hero{font-family:‘Barlow Condensed’,sans-serif;font-size:38px;font-weight:900;letter-spacing:2px;padding:8px;border-bottom:2px solid var(–w);background:var(–s1);}
+.field input.hero{font-family:‘Barlow Condensed’,sans-serif;font-size:38px;font-weight:900;letter-spacing:2px;padding:8px;border-bottom:2px solid var(–w);background:#111;}
 .field input.hero:focus{border-bottom-color:var(–r);}
 .field textarea{resize:none;height:70px;font-size:13px;}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
@@ -229,7 +229,7 @@ hr.div{border:none;border-top:1px solid var(–bd);margin:16px 0;}
 <body>
 
 <header>
-  <img src="logo.jpeg" alt="Garimpo do Madruga" class="logo-img">
+  <img src="1e9e57a4-dd18-46fb-9a59-604587bd5734.jpeg" alt="Garimpo do Madruga" class="logo-img">
   <div class="logo-text">
     <div class="logo-main">Garimpo do Madruga</div>
     <div class="logo-sub">Gestor de Importação</div>
@@ -258,7 +258,7 @@ hr.div{border:none;border-top:1px solid var(–bd);margin:16px 0;}
   <div class="field"><label>Preço da peça (€)</label><input type="number" id="f-preco" class="hero" placeholder="5.00" step="0.50" min="0" inputmode="decimal"></div>
   <div class="g2">
     <div class="field"><label>Frete (€)</label><input type="number" id="f-frete" value="1.50" step="0.50" min="0" inputmode="decimal"></div>
-    <div class="field"><label>Taxa proteção (€)</label><input type="number" id="f-taxa" value="0.70" step="0.10" min="0" inputmode="decimal"></div>
+    <div class="field"><label>Taxa proteção (€)</label><input type="number" id="f-taxa" value="0" step="0.10" min="0" inputmode="decimal"></div>
   </div>
   <div class="aband" id="al-lim"></div>
 
@@ -681,7 +681,7 @@ function calcular() {
   var nome=document.getElementById('f-nome').value.trim();
   var preco=parseFloat(document.getElementById('f-preco').value);
   var frete=parseFloat(document.getElementById('f-frete').value)||1.50;
-  var taxa=parseFloat(document.getElementById('f-taxa').value)||0.70;
+  var taxa=parseFloat(document.getElementById("f-taxa").value)||0;
   var inp=document.getElementById('f-preco');
   if(!preco||preco<=0){ inp.style.borderBottomColor='#cc1111'; setTimeout(function(){ inp.style.borderBottomColor=''; },1500); return; }
   var tot=preco+frete+taxa; var f=getFaixa(tot);
