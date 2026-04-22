@@ -5,362 +5,245 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Garimpo do Madruga — Gestor</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,700;0,900;1,900&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #000000;
-  --surface: #111111;
-  --border: #222222;
-  --white: #ffffff;
-  --red: #cc1111;
-  --red-dim: #880a0a;
-  --gray: #555555;
-  --gray-light: #888888;
-  --ok: #22aa44;
-  --warn: #cc8800;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html, body { background: var(--bg); color: var(--white); font-family: 'Barlow', sans-serif; min-height: 100vh; }
-body { padding-bottom: 80px; }
+:root{--bg:#000;--s1:#111;--s2:#181818;--bd:#222;--w:#fff;--r:#cc1111;--rd:#880a0a;--g:#555;--gl:#888;--ok:#22aa44;--wn:#cc8800;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{background:var(--bg);color:var(--w);font-family:'Barlow',sans-serif;min-height:100vh;}
+body{padding-bottom:80px;}
 
 /* HEADER */
-header {
-background: var(–bg);
-border-bottom: 1px solid var(–border);
-padding: 14px 16px;
-display: flex; align-items: center; gap: 12px;
-position: sticky; top: 0; z-index: 200;
-}
-.logo-circle {
-width: 44px; height: 44px; border-radius: 50%;
-border: 2px solid var(–white);
-display: flex; align-items: center; justify-content: center;
-flex-shrink: 0;
-}
-.logo-circle-inner {
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 8px; font-weight: 900;
-text-align: center; line-height: 1.1;
-text-transform: uppercase; letter-spacing: .5px;
-}
-.logo-text { flex: 1; }
-.logo-main {
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 22px; font-weight: 900;
-text-transform: uppercase; letter-spacing: 3px;
-line-height: 1;
-}
-.logo-sub {
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 10px; font-weight: 400;
-text-transform: uppercase; letter-spacing: 3px;
-color: var(–gray-light); margin-top: 1px;
-}
-.header-badge {
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 9px; font-weight: 700;
-text-transform: uppercase; letter-spacing: 2px;
-border: 1px solid var(–border); color: var(–gray);
-padding: 4px 8px; border-radius: 2px;
-flex-shrink: 0;
-}
+header{background:var(–bg);border-bottom:1px solid var(–bd);padding:12px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:200;}
+.logo-img{width:46px;height:46px;border-radius:50%;border:2px solid var(–w);object-fit:cover;flex-shrink:0;}
+.logo-text{flex:1;}
+.logo-main{font-family:‘Barlow Condensed’,sans-serif;font-size:20px;font-weight:900;text-transform:uppercase;letter-spacing:3px;line-height:1;}
+.logo-sub{font-family:‘Barlow Condensed’,sans-serif;font-size:9px;font-weight:400;text-transform:uppercase;letter-spacing:3px;color:var(–gl);margin-top:1px;}
+.hbadge{font-family:‘Barlow Condensed’,sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;border:1px solid var(–bd);color:var(–g);padding:4px 8px;flex-shrink:0;}
 
 /* TABS */
-.tabs {
-display: flex; background: var(–bg);
-border-bottom: 2px solid var(–white);
-position: sticky; top: 73px; z-index: 199;
-overflow-x: auto;
-}
-.tabs::-webkit-scrollbar { display: none; }
-.tab {
-flex: 0 0 auto; padding: 12px 14px;
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 12px; font-weight: 900;
-letter-spacing: 2px; text-transform: uppercase;
-color: var(–gray); cursor: pointer;
-border-bottom: 3px solid transparent;
-white-space: nowrap; margin-bottom: -2px;
-}
-.tab.active { color: var(–white); border-bottom-color: var(–red); }
+.tabs{display:flex;background:var(–bg);border-bottom:2px solid var(–w);position:sticky;top:71px;z-index:199;overflow-x:auto;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{flex:0 0 auto;padding:11px 13px;font-family:‘Barlow Condensed’,sans-serif;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(–g);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;margin-bottom:-2px;}
+.tab.active{color:var(–w);border-bottom-color:var(–r);}
 
 /* PANELS */
-.panel { display: none; padding: 16px; }
-.panel.active { display: block; }
+.panel{display:none;padding:16px;}
+.panel.active{display:block;}
 
-/* SECTION HEADERS */
-.sec-title {
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 28px; font-weight: 900;
-text-transform: uppercase; letter-spacing: 3px;
-line-height: 1; margin-bottom: 6px;
-}
-.sec-sub {
-font-size: 12px; color: var(–gray-light);
-line-height: 1.5; margin-bottom: 16px;
-letter-spacing: .3px;
-}
-
-/* DIVIDER */
-.divider { border: none; border-top: 1px solid var(–border); margin: 16px 0; }
+/* TYPOGRAPHY */
+.sec-title{font-family:‘Barlow Condensed’,sans-serif;font-size:26px;font-weight:900;text-transform:uppercase;letter-spacing:3px;line-height:1;margin-bottom:6px;}
+.sec-sub{font-size:12px;color:var(–gl);line-height:1.5;margin-bottom:16px;}
+.slabel{font-family:‘Barlow Condensed’,sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(–g);margin-bottom:12px;}
 
 /* FIELDS */
-.field { margin-bottom: 12px; }
-.field label {
-display: block;
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 10px; font-weight: 700;
-letter-spacing: 3px; text-transform: uppercase;
-color: var(–gray-light); margin-bottom: 6px;
-}
-.field input, .field select {
-width: 100%;
-background: var(–surface);
-border: 1px solid var(–border);
-border-bottom: 1px solid var(–white);
-border-radius: 0;
-color: var(–white);
-padding: 12px 0;
-font-size: 16px;
-font-family: ‘Barlow’, sans-serif;
-outline: none;
--webkit-appearance: none;
-transition: border-color .15s;
-}
-.field input:focus { border-bottom-color: var(–red); }
-.field input.hero {
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 40px; font-weight: 900;
-letter-spacing: 2px;
-padding: 8px 0;
-background: transparent;
-border: none; border-bottom: 2px solid var(–white);
-}
-.field input.hero:focus { border-bottom-color: var(–red); }
-.field select { background: var(–surface); padding: 12px 4px; }
-.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field{margin-bottom:12px;}
+.field label{display:block;font-family:‘Barlow Condensed’,sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(–gl);margin-bottom:6px;}
+.field input,.field select,.field textarea{width:100%;background:transparent;border:none;border-bottom:1px solid var(–bd);color:var(–w);padding:10px 0;font-size:15px;font-family:‘Barlow’,sans-serif;outline:none;-webkit-appearance:none;border-radius:0;}
+.field input:focus,.field select:focus{border-bottom-color:var(–r);}
+.field input.hero{font-family:‘Barlow Condensed’,sans-serif;font-size:38px;font-weight:900;letter-spacing:2px;padding:8px 0;border-bottom:2px solid var(–w);}
+.field input.hero:focus{border-bottom-color:var(–r);}
+.field textarea{resize:none;height:70px;font-size:13px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
 
 /* BUTTONS */
-.btn {
-width: 100%;
-padding: 16px;
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 14px; font-weight: 900;
-letter-spacing: 4px; text-transform: uppercase;
-cursor: pointer; border: none;
-transition: opacity .1s;
-}
-.btn:active { opacity: .7; }
-.btn-white { background: var(–white); color: var(–bg); }
-.btn-red { background: var(–red); color: var(–white); }
-.btn-outline { background: transparent; border: 1px solid var(–border); color: var(–white); margin-top: 8px; }
-.btn-outline-red { background: transparent; border: 1px solid var(–red); color: var(–red); margin-top: 8px; font-size: 11px; }
-.btn-wa { background: #25D366; color: var(–white); }
-.btn-sm { padding: 10px 14px; font-size: 11px; letter-spacing: 2px; width: auto; }
+.btn{width:100%;padding:15px;font-family:‘Barlow Condensed’,sans-serif;font-size:13px;font-weight:900;letter-spacing:4px;text-transform:uppercase;cursor:pointer;border:none;transition:opacity .1s;}
+.btn:active{opacity:.7;}
+.bw{background:var(–w);color:var(–bg);}
+.br{background:var(–r);color:var(–w);}
+.bo{background:transparent;border:1px solid var(–bd);color:var(–w);margin-top:8px;}
+.bor{background:transparent;border:1px solid var(–r);color:var(–r);margin-top:8px;font-size:10px;}
+.bwa{background:#25D366;color:var(–w);}
+.bsm{padding:10px 14px;font-size:11px;letter-spacing:2px;width:auto;}
+.bgr{background:var(–s2);color:var(–gl);border:1px solid var(–bd);}
 
 /* ALERT BAND */
-.aband {
-padding: 12px 14px;
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 14px; font-weight: 700; letter-spacing: 1px;
-margin-bottom: 14px; display: none;
-border-left: 4px solid;
-}
-.aband.ok  { display: block; border-color: var(–ok);   color: #44ee66; background: #001a0a; }
-.aband.wn  { display: block; border-color: var(–warn);  color: #ffbb33; background: #1a1000; }
-.aband.no  { display: block; border-color: var(–red);   color: #ff4444; background: #1a0000; }
+.aband{padding:12px 14px;font-family:‘Barlow Condensed’,sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;margin-bottom:14px;display:none;border-left:3px solid;}
+.aband.ok{display:block;border-color:var(–ok);color:#44ee66;background:#001a0a;}
+.aband.wn{display:block;border-color:var(–wn);color:#ffbb33;background:#1a1000;}
+.aband.no{display:block;border-color:var(–r);color:#ff4444;background:#1a0000;}
 
 /* RESULT */
-.result-wrap { border: 1px solid var(–white); padding: 16px; margin-top: 16px; display: none; }
-.result-wrap.show { display: block; }
-.result-eyebrow {
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 10px; font-weight: 700; letter-spacing: 4px;
-text-transform: uppercase; color: var(–gray-light); margin-bottom: 14px;
-}
-.result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-.ri-label {
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 10px; font-weight: 700; letter-spacing: 2px;
-text-transform: uppercase; color: var(–gray); margin-bottom: 4px;
-}
-.ri-val {
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 34px; font-weight: 900; letter-spacing: 1px; line-height: 1;
-}
-.ri-gray { color: var(–gray-light); font-size: 22px; }
-.ri-white { color: var(–white); }
-.ri-red { color: var(–red); }
-.result-tag {
-display: inline-block;
-border: 1px solid var(–border); padding: 4px 10px;
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 10px; letter-spacing: 1px; color: var(–gray);
-margin-bottom: 14px;
-}
+.rbox{border:1px solid var(–w);padding:16px;margin-top:16px;display:none;}
+.rbox.show{display:block;}
+.reyebrow{font-family:‘Barlow Condensed’,sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(–gl);margin-bottom:14px;}
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.rilabel{font-family:‘Barlow Condensed’,sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(–g);margin-bottom:4px;}
+.rival{font-family:‘Barlow Condensed’,sans-serif;font-size:32px;font-weight:900;letter-spacing:1px;line-height:1;}
+.rv-g{color:var(–gl);font-size:20px;}.rv-w{color:var(–w);}.rv-r{color:var(–r);}
+.rtag{display:inline-block;border:1px solid var(–bd);padding:4px 10px;font-family:‘Barlow Condensed’,sans-serif;font-size:10px;letter-spacing:1px;color:var(–g);margin-bottom:14px;}
 
 /* FORM SLIDE */
-.form-slide { border-top: 2px solid var(–red); padding: 16px 0; margin-top: 16px; display: none; }
-.form-slide.show { display: block; }
-.form-title {
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 18px; font-weight: 900;
-text-transform: uppercase; letter-spacing: 3px;
-color: var(–red); margin-bottom: 14px;
-}
+.fslide{border-top:2px solid var(–r);padding:16px 0;margin-top:16px;display:none;}
+.fslide.show{display:block;}
+.ftitle{font-family:‘Barlow Condensed’,sans-serif;font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:3px;color:var(–r);margin-bottom:14px;}
 
 /* LOTE */
-.lote-big {
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 96px; font-weight: 900;
-color: var(–white); line-height: 1;
-letter-spacing: -2px;
-}
-.lote-label {
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 10px; font-weight: 700; letter-spacing: 4px;
-text-transform: uppercase; color: var(–gray-light);
-margin-bottom: 4px;
-}
-.lote-sub { font-size: 14px; color: var(–white); }
-.prog { height: 2px; background: var(–border); margin: 12px 0; }
-.prog-fill { height: 100%; background: var(–white); transition: width .4s; }
-.lote-ready {
-border: 1px solid var(–red); padding: 10px 14px;
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 13px; font-weight: 900; letter-spacing: 3px;
-text-transform: uppercase; color: var(–red);
-display: none; margin-bottom: 16px;
-}
-.lote-ready.show { display: block; }
+.lbig{font-family:‘Barlow Condensed’,sans-serif;font-size:88px;font-weight:900;color:var(–w);line-height:1;letter-spacing:-2px;}
+.llabel{font-family:‘Barlow Condensed’,sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(–gl);margin-bottom:4px;}
+.lsub-text{font-size:13px;color:var(–w);}
+.prog{height:2px;background:var(–bd);margin:12px 0;}
+.pfill{height:100%;background:var(–w);transition:width .4s;}
+.lready{border:1px solid var(–r);padding:10px 14px;font-family:‘Barlow Condensed’,sans-serif;font-size:12px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:var(–r);display:none;margin-bottom:16px;}
+.lready.show{display:block;}
 
-.tots { display: flex; border: 1px solid var(–border); margin-bottom: 16px; }
-.tot-item { flex: 1; padding: 12px 8px; text-align: center; border-right: 1px solid var(–border); }
-.tot-item:last-child { border-right: none; }
-.tot-val { font-family: ‘Barlow Condensed’, sans-serif; font-size: 22px; font-weight: 900; color: var(–white); letter-spacing: 1px; }
-.tot-lbl { font-family: ‘Barlow Condensed’, sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(–gray); margin-top: 2px; }
+.tots{display:flex;border:1px solid var(–bd);margin-bottom:16px;}
+.toti{flex:1;padding:12px 6px;text-align:center;border-right:1px solid var(–bd);}
+.toti:last-child{border-right:none;}
+.totv{font-family:‘Barlow Condensed’,sans-serif;font-size:20px;font-weight:900;letter-spacing:1px;}
+.totl{font-family:‘Barlow Condensed’,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(–g);margin-top:2px;}
 
 /* VENDA CARD */
-.vcard { border-bottom: 1px solid var(–border); padding: 14px 0; position: relative; }
-.vcard:last-child { border-bottom: none; }
-.vcard-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
-.vcard-name { font-family: ‘Barlow Condensed’, sans-serif; font-size: 16px; font-weight: 700; flex: 1; padding-right: 24px; line-height: 1.3; letter-spacing: .5px; }
-.vcard-price { font-family: ‘Barlow Condensed’, sans-serif; font-size: 22px; font-weight: 900; color: var(–white); }
-.vcard-foot { display: flex; justify-content: space-between; }
-.vcard-buyer { font-size: 11px; color: var(–gray-light); letter-spacing: .5px; }
-.vcard-margin { font-family: ‘Barlow Condensed’, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1px; }
-.vdel { position: absolute; top: 14px; right: 0; background: none; border: none; color: var(–gray); font-size: 18px; cursor: pointer; padding: 4px; line-height: 1; }
+.vcard{border-bottom:1px solid var(–bd);padding:14px 0;position:relative;}
+.vcard:last-child{border-bottom:none;}
+.vchead{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+.vcname{font-family:‘Barlow Condensed’,sans-serif;font-size:15px;font-weight:700;flex:1;padding-right:24px;line-height:1.3;}
+.vcprice{font-family:‘Barlow Condensed’,sans-serif;font-size:22px;font-weight:900;}
+.vcfoot{display:flex;justify-content:space-between;}
+.vcbuyer{font-size:11px;color:var(–gl);}
+.vcmargin{font-family:‘Barlow Condensed’,sans-serif;font-size:12px;font-weight:700;}
+.vdel{position:absolute;top:14px;right:0;background:none;border:none;color:var(–g);font-size:18px;cursor:pointer;padding:4px;line-height:1;}
 
 /* PEÇAS */
-.peca-card { border-bottom: 1px solid var(–border); padding: 16px 0; }
-.peca-card:last-child { border-bottom: none; }
-.peca-card.sold .peca-name { color: var(–gray-light); }
-.peca-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-.peca-name { font-family: ‘Barlow Condensed’, sans-serif; font-size: 18px; font-weight: 900; flex: 1; padding-right: 8px; line-height: 1.2; letter-spacing: .5px; text-transform: uppercase; }
-.peca-price { font-family: ‘Barlow Condensed’, sans-serif; font-size: 26px; font-weight: 900; color: var(–white); }
-.peca-price.sold { color: var(–red); }
-.peca-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
-.ptag {
-border: 1px solid var(–border); padding: 3px 8px;
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 10px; font-weight: 700; letter-spacing: 1px;
-text-transform: uppercase; color: var(–gray-light);
-}
-.ptag.w { color: var(–white); border-color: var(–white); }
-.ptag.r { color: var(–red); border-color: var(–red); }
-.sold-stamp {
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 10px; font-weight: 900; letter-spacing: 3px;
-color: var(–red); border: 1px solid var(–red);
-display: inline-block; padding: 3px 8px; margin-bottom: 8px;
-}
-.peca-actions { display: flex; gap: 6px; }
-.pa { flex: 1; padding: 11px 6px; font-family: ‘Barlow Condensed’, sans-serif; font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; border: none; cursor: pointer; }
-.pa:active { opacity: .75; }
-.pa-red { background: var(–red); color: var(–white); }
-.pa-wa { background: #25D366; color: var(–white); }
-.pa-gray { background: var(–border); color: var(–gray-light); }
-.pa-del { flex: 0 0 auto; padding: 11px 12px; background: transparent; border: 1px solid var(–border); color: var(–gray); font-size: 14px; cursor: pointer; }
+.pcard{border-bottom:1px solid var(–bd);padding:16px 0;}
+.pcard:last-child{border-bottom:none;}
+.pcard.sold .pname{color:var(–gl);}
+.phead{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.pname{font-family:‘Barlow Condensed’,sans-serif;font-size:17px;font-weight:900;flex:1;padding-right:8px;line-height:1.2;text-transform:uppercase;}
+.pprice{font-family:‘Barlow Condensed’,sans-serif;font-size:24px;font-weight:900;}
+.pprice.sold{color:var(–r);}
+
+/* STATUS BADGE */
+.status-badge{display:inline-block;padding:3px 8px;font-family:‘Barlow Condensed’,sans-serif;font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;border:1px solid;margin-bottom:8px;cursor:pointer;}
+.st-0{color:#888;border-color:#444;}
+.st-1{color:#4488ff;border-color:#4488ff;}
+.st-2{color:#ffbb33;border-color:#cc8800;}
+.st-3{color:#aa77ff;border-color:#aa77ff;}
+.st-4{color:#44ee66;border-color:#22aa44;}
+.st-5{color:#ff8844;border-color:#ff8844;}
+.st-6{color:#44ee66;border-color:#22aa44;background:#001a0a;}
+
+.ptags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.ptag{border:1px solid var(–bd);padding:3px 8px;font-family:‘Barlow Condensed’,sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(–gl);}
+.ptag.w{color:var(–w);border-color:var(–w);}
+.ptag.r{color:var(–r);border-color:var(–r);}
+.sold-stamp{font-family:‘Barlow Condensed’,sans-serif;font-size:10px;font-weight:900;letter-spacing:3px;color:var(–r);border:1px solid var(–r);display:inline-block;padding:3px 8px;margin-bottom:8px;}
+.pactions{display:flex;gap:6px;}
+.pa{flex:1;padding:11px 4px;font-family:‘Barlow Condensed’,sans-serif;font-size:10px;font-weight:900;letter-spacing:1px;text-transform:uppercase;border:none;cursor:pointer;}
+.pa:active{opacity:.75;}
+.pa-r{background:var(–r);color:var(–w);}
+.pa-wa{background:#25D366;color:var(–w);}
+.pa-g{background:var(–s2);color:var(–gl);border:1px solid var(–bd);}
+.pa-del{flex:0 0 auto;padding:11px 10px;background:transparent;border:1px solid var(–bd);color:var(–g);font-size:14px;cursor:pointer;}
 
 /* STATUS TABS */
-.stabs { display: flex; margin-bottom: 16px; border-bottom: 1px solid var(–border); }
-.stab { flex: 1; padding: 10px; text-align: center; font-family: ‘Barlow Condensed’, sans-serif; font-size: 12px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; color: var(–gray); border-bottom: 2px solid transparent; margin-bottom: -1px; }
-.stab.active { color: var(–white); border-bottom-color: var(–red); }
+.stabs{display:flex;margin-bottom:16px;border-bottom:1px solid var(–bd);}
+.stab{flex:1;padding:10px;text-align:center;font-family:‘Barlow Condensed’,sans-serif;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;cursor:pointer;color:var(–g);border-bottom:2px solid transparent;margin-bottom:-1px;}
+.stab.active{color:var(–w);border-bottom-color:var(–r);}
 
 /* PESO */
-.peso-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(–border); margin-bottom: 16px; }
-.peso-stat { background: var(–bg); padding: 16px; text-align: center; }
-.peso-val { font-family: ‘Barlow Condensed’, sans-serif; font-size: 36px; font-weight: 900; letter-spacing: 1px; line-height: 1; }
-.peso-lbl { font-family: ‘Barlow Condensed’, sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(–gray-light); margin-top: 4px; }
-.alf-box { border-left: 3px solid var(–border); padding: 12px 14px; margin-bottom: 16px; }
-.alf-label { font-family: ‘Barlow Condensed’, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(–gray); margin-bottom: 6px; }
-.alf-text { font-size: 13px; line-height: 1.6; }
-.alf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(–border); }
-.alf-card { background: var(–bg); padding: 14px; }
-.alf-name { font-family: ‘Barlow Condensed’, sans-serif; font-size: 14px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
-.alf-info { font-size: 11px; line-height: 2; color: var(–gray-light); }
-.peso-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(–border); padding: 10px 0; }
-.peso-name { font-family: ‘Barlow Condensed’, sans-serif; font-size: 14px; font-weight: 700; letter-spacing: .5px; }
-.peso-g { font-size: 11px; color: var(–gray-light); margin-top: 2px; }
-.peso-del { background: none; border: none; color: var(–gray); font-size: 18px; cursor: pointer; }
+.pstats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(–bd);margin-bottom:16px;}
+.pstat{background:var(–bg);padding:16px;text-align:center;}
+.pstatv{font-family:‘Barlow Condensed’,sans-serif;font-size:34px;font-weight:900;letter-spacing:1px;line-height:1;}
+.pstatl{font-family:‘Barlow Condensed’,sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(–gl);margin-top:4px;}
+.alfbox{border-left:3px solid var(–bd);padding:12px 14px;margin-bottom:16px;}
+.alflabel{font-family:‘Barlow Condensed’,sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(–g);margin-bottom:6px;}
+.alftext{font-size:13px;line-height:1.6;}
+.alfgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(–bd);}
+.alfcard{background:var(–bg);padding:14px;}
+.alfname{font-family:‘Barlow Condensed’,sans-serif;font-size:14px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.alfinfo{font-size:11px;line-height:2;color:var(–gl);}
+.pitem{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(–bd);padding:10px 0;}
+.piname{font-family:‘Barlow Condensed’,sans-serif;font-size:14px;font-weight:700;}
+.pig{font-size:11px;color:var(–gl);margin-top:2px;}
+.pdel2{background:none;border:none;color:var(–g);font-size:18px;cursor:pointer;}
+
+/* RATEIO */
+.rateio-card{border:1px solid var(–bd);padding:14px;margin-bottom:10px;position:relative;}
+.rateio-card.calculado{border-color:var(–ok);}
+.rc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.rc-nome{font-family:‘Barlow Condensed’,sans-serif;font-size:15px;font-weight:700;text-transform:uppercase;}
+.rc-peso{font-size:12px;color:var(–gl);}
+.rc-frete{font-family:‘Barlow Condensed’,sans-serif;font-size:22px;font-weight:900;color:var(–ok);}
+.rc-total{font-family:‘Barlow Condensed’,sans-serif;font-size:13px;color:var(–gl);}
+
+/* HISTÓRICO */
+.hcard{border-bottom:1px solid var(–bd);padding:14px 0;}
+.hcard:last-child{border-bottom:none;}
+.hchead{display:flex;justify-content:space-between;margin-bottom:8px;}
+.hctitle{font-family:‘Barlow Condensed’,sans-serif;font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:1px;}
+.hcdate{font-size:11px;color:var(–gl);}
+.hcstats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.hcstat{text-align:center;background:var(–s1);padding:10px 6px;}
+.hcsv{font-family:‘Barlow Condensed’,sans-serif;font-size:18px;font-weight:900;letter-spacing:1px;}
+.hcsl{font-family:‘Barlow Condensed’,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(–g);margin-top:2px;}
+
+/* TEMPLATES */
+.tmpl-card{border:1px solid var(–bd);padding:14px;margin-bottom:10px;}
+.tmpl-title{font-family:‘Barlow Condensed’,sans-serif;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;}
+.tmpl-text{font-size:12px;color:var(–gl);line-height:1.6;margin-bottom:10px;}
+.tmpl-actions{display:flex;gap:8px;}
+.tbtn{padding:9px 14px;font-family:‘Barlow Condensed’,sans-serif;font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border:none;}
+.tbtn:active{opacity:.75;}
+.tbtn-w{background:var(–w);color:var(–bg);}
+.tbtn-wa{background:#25D366;color:var(–w);}
 
 /* TAMANHOS */
-.size-section { margin-bottom: 20px; }
-.size-sec-title { font-family: ‘Barlow Condensed’, sans-serif; font-size: 14px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; color: var(–red); border-bottom: 1px solid var(–border); padding-bottom: 8px; margin-bottom: 12px; }
-.stbl { width: 100%; border-collapse: collapse; font-size: 13px; }
-.stbl th { padding: 8px 6px; text-align: center; font-family: ‘Barlow Condensed’, sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(–gray); border-bottom: 1px solid var(–border); }
-.stbl td { padding: 9px 6px; text-align: center; border-bottom: 1px solid var(–border); }
-.stbl tr:hover td { background: var(–surface); }
-.eu { color: var(–red); font-weight: 700; font-family: ‘Barlow Condensed’, sans-serif; font-size: 15px; }
-.br { color: var(–white); font-weight: 700; font-family: ‘Barlow Condensed’, sans-serif; font-size: 15px; }
-.size-note { font-size: 10px; color: var(–gray); font-style: italic; margin-top: 6px; margin-bottom: 16px; }
-.size-srch { display: flex; gap: 0; margin-bottom: 16px; border-bottom: 2px solid var(–white); }
-.size-srch input { flex: 1; background: transparent; border: none; color: var(–white); padding: 12px 0; font-size: 18px; font-family: ‘Barlow’, sans-serif; outline: none; }
-.size-srch-btn { background: var(–red); border: none; color: var(–white); padding: 12px 16px; font-family: ‘Barlow Condensed’, sans-serif; font-size: 12px; font-weight: 900; letter-spacing: 2px; cursor: pointer; }
-.sz-res { border: 1px solid var(–white); padding: 16px; margin-bottom: 16px; display: none; }
-.sz-res.show { display: block; }
-.sz-res-title { font-family: ‘Barlow Condensed’, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(–gray-light); margin-bottom: 12px; }
-.sz-boxes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(–border); }
-.sz-box { background: var(–bg); padding: 12px 6px; text-align: center; }
-.sz-val { font-family: ‘Barlow Condensed’, sans-serif; font-size: 28px; font-weight: 900; letter-spacing: 1px; line-height: 1; }
-.sz-lbl { font-family: ‘Barlow Condensed’, sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(–gray); margin-top: 4px; }
+.ssec{margin-bottom:20px;}
+.ssec-title{font-family:‘Barlow Condensed’,sans-serif;font-size:13px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:var(–r);border-bottom:1px solid var(–bd);padding-bottom:8px;margin-bottom:12px;}
+.stbl{width:100%;border-collapse:collapse;font-size:13px;}
+.stbl th{padding:8px 6px;text-align:center;font-family:‘Barlow Condensed’,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(–g);border-bottom:1px solid var(–bd);}
+.stbl td{padding:9px 6px;text-align:center;border-bottom:1px solid var(–bd);}
+.stbl tr:hover td{background:var(–s1);}
+.eu{color:var(–r);font-weight:700;font-family:‘Barlow Condensed’,sans-serif;font-size:15px;}
+.br{color:var(–w);font-weight:700;font-family:‘Barlow Condensed’,sans-serif;font-size:15px;}
+.snote{font-size:10px;color:var(–g);font-style:italic;margin-top:6px;margin-bottom:16px;}
+.ssrch{display:flex;border-bottom:2px solid var(–w);margin-bottom:16px;}
+.ssrch input{flex:1;background:transparent;border:none;color:var(–w);padding:12px 0;font-size:18px;font-family:‘Barlow’,sans-serif;outline:none;}
+.ssrch-btn{background:var(–r);border:none;color:var(–w);padding:12px 14px;font-family:‘Barlow Condensed’,sans-serif;font-size:11px;font-weight:900;letter-spacing:2px;cursor:pointer;}
+.szres{border:1px solid var(–w);padding:16px;margin-bottom:16px;display:none;}
+.szres.show{display:block;}
+.szres-title{font-family:‘Barlow Condensed’,sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(–gl);margin-bottom:12px;}
+.szboxes{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(–bd);}
+.szbox{background:var(–bg);padding:12px 6px;text-align:center;}
+.szval{font-family:‘Barlow Condensed’,sans-serif;font-size:26px;font-weight:900;letter-spacing:1px;line-height:1;}
+.szlbl{font-family:‘Barlow Condensed’,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(–g);margin-top:4px;}
 
 /* TABELA */
-.reftbl { width: 100%; border-collapse: collapse; font-size: 13px; }
-.reftbl th { padding: 10px 6px; text-align: center; font-family: ‘Barlow Condensed’, sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(–gray); border-bottom: 2px solid var(–white); }
-.reftbl td { padding: 10px 6px; text-align: center; border-bottom: 1px solid var(–border); font-family: ‘Barlow Condensed’, sans-serif; font-size: 14px; font-weight: 700; }
-.reftbl tr:hover td { background: var(–surface); }
-.tok { color: #44ee66; }
-.tno { color: var(–red); }
-.tmin { color: var(–white); }
-.tmax { color: var(–gray-light); }
+.reftbl{width:100%;border-collapse:collapse;font-size:13px;}
+.reftbl th{padding:10px 6px;text-align:center;font-family:‘Barlow Condensed’,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(–g);border-bottom:2px solid var(–w);}
+.reftbl td{padding:10px 6px;text-align:center;border-bottom:1px solid var(–bd);font-family:‘Barlow Condensed’,sans-serif;font-size:14px;font-weight:700;}
+.reftbl tr:hover td{background:var(–s1);}
+.tok{color:#44ee66;}.tno{color:var(–r);}.tmin{color:var(–w);}.tmax{color:var(–gl);}
 
 /* EMPTY */
-.empty { text-align: center; padding: 48px 16px; color: var(–gray); }
-.empty-icon { font-size: 40px; margin-bottom: 12px; }
-.empty p { font-family: ‘Barlow Condensed’, sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; line-height: 1.8; }
+.empty{text-align:center;padding:48px 16px;color:var(–g);}
+.empty-icon{font-size:40px;margin-bottom:12px;}
+.empty p{font-family:‘Barlow Condensed’,sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;line-height:1.8;}
 
-.slabel { font-family: ‘Barlow Condensed’, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(–gray); margin-bottom: 12px; }
+/* DIVIDER */
+hr.div{border:none;border-top:1px solid var(–bd);margin:16px 0;}
 </style>
 
 </head>
 <body>
 
 <header>
-  <div class="logo-circle">
-    <div class="logo-circle-inner">GARIMPO<br>DO<br>MADRUGA</div>
-  </div>
+  <img src="logo.jpeg" alt="Garimpo do Madruga" class="logo-img">
   <div class="logo-text">
     <div class="logo-main">Garimpo do Madruga</div>
     <div class="logo-sub">Gestor de Importação</div>
   </div>
-  <div class="header-badge">Vinted EU</div>
+  <div class="hbadge">Vinted EU</div>
 </header>
 
 <div class="tabs">
   <div class="tab active" onclick="go('calc')">Calcular</div>
   <div class="tab" onclick="go('pecas')">Peças</div>
   <div class="tab" onclick="go('lote')">Lote</div>
+  <div class="tab" onclick="go('rateio')">Rateio</div>
+  <div class="tab" onclick="go('hist')">Histórico</div>
+  <div class="tab" onclick="go('tmpl')">Mensagens</div>
   <div class="tab" onclick="go('peso')">Peso</div>
   <div class="tab" onclick="go('tam')">Tamanhos</div>
   <div class="tab" onclick="go('tabela')">Tabela</div>
@@ -371,7 +254,6 @@ display: inline-block; padding: 3px 8px; margin-bottom: 8px;
 <div class="panel active" id="panel-calc">
   <div class="sec-title">Calcular Preço</div>
   <div class="sec-sub">Olha os valores no Vinted e digita aqui. Total acima de €10 = não compensa.</div>
-
   <div class="field"><label>Nome da peça</label><input type="text" id="f-nome" placeholder="ex: Polo Sergio Tacchini M branca"></div>
   <div class="field"><label>Preço da peça (€)</label><input type="number" id="f-preco" class="hero" placeholder="5.00" step="0.50" min="0" inputmode="decimal"></div>
   <div class="g2">
@@ -379,59 +261,69 @@ display: inline-block; padding: 3px 8px; margin-bottom: 8px;
     <div class="field"><label>Taxa proteção (€)</label><input type="number" id="f-taxa" value="0.70" step="0.10" min="0" inputmode="decimal"></div>
   </div>
   <div class="aband" id="al-lim"></div>
-  <button class="btn btn-white" id="btn-calc" onclick="calcular()">Calcular Preço</button>
 
-  <div class="result-wrap" id="rwrap">
-    <div class="result-eyebrow">Resultado da Análise</div>
-    <div class="result-tag" id="r-tag">—</div>
-    <div class="result-grid">
-      <div><div class="ri-label">Custo total</div><div class="ri-val ri-gray" id="r-ct">—</div></div>
-      <div><div class="ri-label">Convertido R$</div><div class="ri-val ri-gray" id="r-cv">—</div></div>
-      <div><div class="ri-label">Venda mínima</div><div class="ri-val ri-white" id="r-mn">—</div></div>
-      <div><div class="ri-label">Venda máxima</div><div class="ri-val ri-red" id="r-mx">—</div></div>
-    </div>
-    <div id="r-nome" style="font-size:12px;color:var(--gray-light);font-style:italic;margin-bottom:14px;"></div>
-    <button class="btn btn-red" onclick="abrirFV()">+ Registrar Venda no Lote</button>
+  <!-- CALCULADORA DE MARGEM -->
+
+  <div style="border:1px solid var(--bd);padding:14px;margin-bottom:14px;">
+    <div class="slabel" style="margin-bottom:10px;">Calculadora de Margem</div>
+    <div class="field"><label>Preço de venda desejado (R$)</label><input type="number" id="f-venda" placeholder="ex: 150" inputmode="numeric" oninput="calcMargem()"></div>
+    <div class="aband" id="al-margem" style="margin-bottom:0;"></div>
   </div>
 
-  <div class="form-slide" id="fvenda">
-    <div class="form-title">Registrar Venda</div>
+<button class="btn bw" id="btn-calc" onclick="calcular()">Calcular Preço</button>
+
+  <div class="rbox" id="rwrap">
+    <div class="reyebrow">Resultado da Análise</div>
+    <div class="rtag" id="r-tag">—</div>
+    <div class="rgrid">
+      <div><div class="rilabel">Custo total</div><div class="rival rv-g" id="r-ct">—</div></div>
+      <div><div class="rilabel">Convertido R$</div><div class="rival rv-g" id="r-cv">—</div></div>
+      <div><div class="rilabel">Venda mínima</div><div class="rival rv-w" id="r-mn">—</div></div>
+      <div><div class="rilabel">Venda máxima</div><div class="rival rv-r" id="r-mx">—</div></div>
+    </div>
+    <div id="r-nome" style="font-size:12px;color:var(--gl);font-style:italic;margin-bottom:14px;"></div>
+    <button class="btn br" onclick="abrirFV()">+ Registrar Venda no Lote</button>
+  </div>
+
+  <div class="fslide" id="fvenda">
+    <div class="ftitle">Registrar Venda</div>
     <div class="field"><label>Peça</label><input type="text" id="fv-p" placeholder="ex: Polo Sergio Tacchini M"></div>
     <div class="field"><label>Comprador</label><input type="text" id="fv-c" placeholder="ex: @joao ou João Silva"></div>
     <div class="field"><label>Preço vendido (R$)</label><input type="number" id="fv-r" placeholder="150" inputmode="numeric"></div>
-    <button class="btn btn-white" onclick="salvarVenda()">Confirmar Venda</button>
-    <button class="btn btn-outline" onclick="fecharFV()">Cancelar</button>
+    <button class="btn bw" onclick="salvarVenda()">Confirmar Venda</button>
+    <button class="btn bo" onclick="fecharFV()">Cancelar</button>
   </div>
 </div>
 
 <!-- PEÇAS -->
 
 <div class="panel" id="panel-pecas">
-  <div class="sec-title">Peças Anunciadas</div>
-  <div class="sec-sub">Cadastre o que você postou. Quando vender no Vinted, toca em "Vendido" e o app manda mensagem pro grupo.</div>
-  <button class="btn btn-white" onclick="toggleForm()" style="margin-bottom:16px;">+ Cadastrar Nova Peça</button>
+  <div class="sec-title">Peças</div>
+  <div class="sec-sub">Cadastre o que você anunciou. Acompanhe o status de cada pedido.</div>
+  <button class="btn bw" onclick="toggleForm()" style="margin-bottom:16px;">+ Cadastrar Nova Peça</button>
 
-  <div class="form-slide" id="form-peca">
-    <div class="form-title">Nova Peça</div>
+  <div class="fslide" id="form-peca">
+    <div class="ftitle">Nova Peça</div>
     <div class="field"><label>Nome</label><input type="text" id="np-nome" placeholder="ex: Polo Sergio Tacchini M branca"></div>
     <div class="g2">
-      <div class="field"><label>Tam. EU</label><input type="text" id="np-tam" placeholder="ex: M, 46"></div>
-      <div class="field"><label>Tam. BR</label><input type="text" id="np-tambr" placeholder="ex: M, GG"></div>
+      <div class="field"><label>Tam. EU</label><input type="text" id="np-tam" placeholder="M, 46"></div>
+      <div class="field"><label>Tam. BR</label><input type="text" id="np-tambr" placeholder="M, GG"></div>
     </div>
     <div class="g2">
       <div class="field"><label>Preço venda R$</label><input type="number" id="np-preco" placeholder="150" inputmode="numeric"></div>
       <div class="field"><label>Custo total €</label><input type="number" id="np-custo" placeholder="7.20" step="0.10" inputmode="decimal"></div>
     </div>
-    <div class="field"><label>Comprador interessado</label><input type="text" id="np-comp" placeholder="ex: João / @joao"></div>
-    <div class="field"><label>Telefone do comprador</label><input type="tel" id="np-tel" placeholder="ex: 11999998888" inputmode="numeric"></div>
+    <div class="field"><label>Comprador</label><input type="text" id="np-comp" placeholder="ex: João / @joao"></div>
+    <div class="field"><label>Telefone</label><input type="tel" id="np-tel" placeholder="11999998888" inputmode="numeric"></div>
+    <div class="field"><label>Peso estimado (g)</label><input type="number" id="np-peso" placeholder="ex: 200" inputmode="numeric"></div>
     <div class="field"><label>Link Vinted (opcional)</label><input type="text" id="np-link" placeholder="https://www.vinted.fr/items/..."></div>
-    <button class="btn btn-white" onclick="cadastrar()">Cadastrar Peça</button>
-    <button class="btn btn-outline" onclick="toggleForm()">Cancelar</button>
+    <button class="btn bw" onclick="cadastrar()">Cadastrar Peça</button>
+    <button class="btn bo" onclick="toggleForm()">Cancelar</button>
   </div>
 
   <div class="stabs">
     <div class="stab active" onclick="filtrar('ativas')" id="tab-at">Ativas</div>
-    <div class="stab" onclick="filtrar('vendidas')" id="tab-vd">Vendidas</div>
+    <div class="stab" onclick="filtrar('vendidas')" id="tab-vd">Concluídas</div>
   </div>
   <div id="pecas-list"></div>
 </div>
@@ -439,21 +331,84 @@ display: inline-block; padding: 3px 8px; margin-bottom: 8px;
 <!-- LOTE -->
 
 <div class="panel" id="panel-lote">
-  <div class="lote-big" id="lnum">0</div>
-  <div class="lote-label">Peças no lote</div>
-  <div class="lote-sub" id="lsub">Acumule 7–8 peças para enviar</div>
-  <div class="prog"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
-  <div class="lote-ready" id="lready">PRONTO — Monte o pacote e envie!</div>
+  <div class="lbig" id="lnum">0</div>
+  <div class="llabel">Peças no lote</div>
+  <div class="lsub-text" id="lsub">Acumule 7–12 peças para enviar</div>
+  <div class="prog"><div class="pfill" id="pfill" style="width:0%"></div></div>
+  <div class="lready" id="lready">PRONTO — Monte o pacote e envie!</div>
 
   <div class="tots" id="tots" style="display:none">
-    <div class="tot-item"><div class="tot-val" id="ta">R$0</div><div class="tot-lbl">Arrecadado</div></div>
-    <div class="tot-item"><div class="tot-val" id="tc">R$0</div><div class="tot-lbl">Custo</div></div>
-    <div class="tot-item"><div class="tot-val" id="tlu">R$0</div><div class="tot-lbl">Lucro</div></div>
+    <div class="toti"><div class="totv" id="ta">R$0</div><div class="totl">Arrecadado</div></div>
+    <div class="toti"><div class="totv" id="tc">R$0</div><div class="totl">Custo</div></div>
+    <div class="toti"><div class="totv" id="tlu">R$0</div><div class="totl">Lucro</div></div>
   </div>
 
   <div class="slabel">Peças vendidas</div>
   <div id="vlist"></div>
-  <button class="btn btn-outline-red" onclick="limparLote()" style="margin-top:16px;">Limpar Lote (após enviar)</button>
+
+  <hr class="div">
+  <button class="btn bw" onclick="fecharLote()" style="margin-bottom:8px;">Fechar Lote e Salvar Histórico</button>
+  <button class="btn bor" onclick="limparLote()">Limpar Lote (sem salvar)</button>
+</div>
+
+<!-- RATEIO DE FRETE -->
+
+<div class="panel" id="panel-rateio">
+  <div class="sec-title">Rateio de Frete</div>
+  <div class="sec-sub">Divida o custo do frete proporcionalmente pelo peso de cada peça. Justo pra você e pro cliente.</div>
+
+  <div style="border:1px solid var(--bd);padding:14px;margin-bottom:16px;">
+    <div class="slabel" style="margin-bottom:10px;">Dados do Envio</div>
+    <div class="g2">
+      <div class="field"><label>Custo total frete (R$)</label><input type="number" id="rt-custo" placeholder="333" inputmode="numeric" oninput="calcRateio()"></div>
+      <div class="field"><label>Peso total (g)</label><input type="number" id="rt-peso-total" placeholder="1500" inputmode="numeric" oninput="calcRateio()"></div>
+    </div>
+    <div style="font-size:11px;color:var(--gl);margin-top:4px;">R$ por grama: <span id="rt-pgrama" style="color:var(--w);font-weight:700;">—</span></div>
+  </div>
+
+  <div class="slabel">Adicionar Peça ao Rateio</div>
+  <div style="border:1px solid var(--bd);padding:14px;margin-bottom:16px;">
+    <div class="field"><label>Nome do cliente / peça</label><input type="text" id="rt-nome" placeholder="ex: João — Polo Tacchini M"></div>
+    <div class="g2">
+      <div class="field"><label>Peso da peça (g)</label><input type="number" id="rt-peso" placeholder="200" inputmode="numeric"></div>
+      <div class="field"><label>Preço vendido (R$)</label><input type="number" id="rt-preco" placeholder="150" inputmode="numeric"></div>
+    </div>
+    <button class="btn bw" onclick="addRateio()">+ Adicionar</button>
+  </div>
+
+  <div id="rateio-list"></div>
+
+  <div id="rateio-total-box" style="display:none;border:1px solid var(--ok);padding:14px;margin-top:8px;">
+    <div class="slabel" style="color:#44ee66;margin-bottom:8px;">Resumo do Rateio</div>
+    <div id="rateio-resumo" style="font-size:13px;line-height:2;"></div>
+  </div>
+
+<button class="btn bo" onclick="limparRateio()" style="margin-top:14px;">Limpar Rateio</button>
+
+</div>
+
+<!-- HISTÓRICO -->
+
+<div class="panel" id="panel-hist">
+  <div class="sec-title">Histórico</div>
+  <div class="sec-sub">Lotes enviados e lucro acumulado.</div>
+
+  <div style="border:1px solid var(--bd);padding:14px;margin-bottom:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--bd);" id="hist-totais">
+    <div style="background:var(--bg);padding:12px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;" id="ht-lotes">0</div><div class="totl">Lotes</div></div>
+    <div style="background:var(--bg);padding:12px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;" id="ht-pecas">0</div><div class="totl">Peças</div></div>
+    <div style="background:var(--bg);padding:12px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:#44ee66;" id="ht-lucro">R$0</div><div class="totl">Lucro total</div></div>
+  </div>
+
+  <div class="slabel">Lotes anteriores</div>
+  <div id="hist-list"></div>
+</div>
+
+<!-- MENSAGENS / TEMPLATES -->
+
+<div class="panel" id="panel-tmpl">
+  <div class="sec-title">Mensagens Prontas</div>
+  <div class="sec-sub">Respostas rápidas para as perguntas mais frequentes do grupo. Toca em copiar e manda.</div>
+  <div id="tmpl-list"></div>
 </div>
 
 <!-- PESO -->
@@ -478,56 +433,45 @@ display: inline-block; padding: 3px 8px; margin-bottom: 8px;
         <option value="custom">Personalizado...</option>
       </select>
     </div>
-    <button class="btn btn-white btn-sm" onclick="addPeso()">+ Add</button>
+    <button class="btn bw bsm" onclick="addPeso()">+ Add</button>
   </div>
   <div id="cpw" style="display:none;margin-bottom:12px;">
-    <div class="field"><label>Gramas</label><input type="number" id="p-cust" placeholder="ex: 350" inputmode="numeric"></div>
+    <div class="field"><label>Gramas</label><input type="number" id="p-cust" placeholder="350" inputmode="numeric"></div>
   </div>
-
-  <div class="peso-stats">
-    <div class="peso-stat"><div class="peso-val" id="pt">0g</div><div class="peso-lbl">Peso peças</div></div>
-    <div class="peso-stat"><div class="peso-val" id="pe">300g</div><div class="peso-lbl">Com embalagem</div></div>
+  <div class="pstats">
+    <div class="pstat"><div class="pstatv" id="pt">0g</div><div class="pstatl">Peso peças</div></div>
+    <div class="pstat"><div class="pstatv" id="pe">300g</div><div class="pstatl">Com embalagem</div></div>
   </div>
-
-  <div class="alf-box" id="alf-box">
-    <div class="alf-label">Recomendação</div>
-    <div class="alf-text" id="alf-rec">Adicione peças para ver a recomendação.</div>
+  <div class="alfbox" id="alf-box">
+    <div class="alflabel">Recomendação</div>
+    <div class="alftext" id="alf-rec">Adicione peças para ver.</div>
   </div>
-
   <div style="margin-bottom:16px;">
     <div class="slabel" style="margin-bottom:8px;">Custo estimado Redirect</div>
-    <div id="pcr" style="font-size:14px;"></div>
-    <div style="font-size:10px;color:var(--gray);margin-top:6px;font-style:italic;">Base: 1,5kg = €10 = R$333 via Braza On</div>
+    <div id="pcr"></div>
+    <div style="font-size:10px;color:var(--g);margin-top:6px;font-style:italic;">Base: 1,5kg = €10 = R$333 via Braza On</div>
   </div>
-
-  <div class="alf-grid">
-    <div class="alf-card">
-      <div class="alf-name" style="color:var(--white)">Curitiba</div>
-      <div class="alf-info">✅ Mais barata<br>⚠️ Limite 2kg<br>📝 Até 4 linhas<br>📦 PAC · 10–25d</div>
-    </div>
-    <div class="alf-card">
-      <div class="alf-name" style="color:var(--red)">São Paulo</div>
-      <div class="alf-info">💰 Mais cara<br>✅ Sem limite<br>📝 6+ linhas<br>📦 EMS · 10–20d</div>
-    </div>
+  <div class="alfgrid">
+    <div class="alfcard"><div class="alfname" style="color:var(--w)">Curitiba</div><div class="alfinfo">✅ Mais barata<br>⚠️ Limite 2kg<br>📝 Até 4 linhas<br>📦 PAC · 10–25d</div></div>
+    <div class="alfcard"><div class="alfname" style="color:var(--r)">São Paulo</div><div class="alfinfo">💰 Mais cara<br>✅ Sem limite<br>📝 6+ linhas<br>📦 EMS · 10–20d</div></div>
   </div>
 </div>
 
 <!-- TAMANHOS -->
 
 <div class="panel" id="panel-tam">
-  <div class="sec-title">Conversão de Tamanhos</div>
-  <div class="sec-sub">Peças europeias têm numeração diferente. Busque pelo tamanho EU.</div>
-  <div class="size-srch">
+  <div class="sec-title">Tamanhos</div>
+  <div class="sec-sub">Conversão EU → Brasil. Busque pelo tamanho europeu.</div>
+  <div class="ssrch">
     <input type="text" id="sz-in" placeholder="Busca: M, XL, 46, 42, 39..." oninput="buscarTam()">
-    <button class="size-srch-btn">BUSCAR</button>
+    <button class="ssrch-btn">Buscar</button>
   </div>
-  <div class="sz-res" id="sz-res">
-    <div class="sz-res-title" id="sz-title">—</div>
-    <div class="sz-boxes" id="sz-boxes"></div>
+  <div class="szres" id="sz-res">
+    <div class="szres-title" id="sz-title">—</div>
+    <div class="szboxes" id="sz-boxes"></div>
   </div>
-
-  <div class="size-section">
-    <div class="size-sec-title">Masculino — Camisetas, Polos, Moletons</div>
+  <div class="ssec">
+    <div class="ssec-title">Masculino — Camisetas, Polos, Moletons</div>
     <table class="stbl">
       <thead><tr><th>Letra</th><th>EU Num</th><th>Brasil</th><th>Peito cm</th></tr></thead>
       <tbody>
@@ -540,11 +484,10 @@ display: inline-block; padding: 3px 8px; margin-bottom: 8px;
         <tr><td>3XL</td><td class="eu">56</td><td class="br">EXG</td><td>108–112</td></tr>
       </tbody>
     </table>
-    <div class="size-note">Regra rápida: EU − 2 = BR (EU 48 = BR 46 = M)</div>
+    <div class="snote">Regra: EU − 2 = BR (EU 48 = BR 46 = M)</div>
   </div>
-
-  <div class="size-section">
-    <div class="size-sec-title">Masculino — Calças (Waist/Cintura)</div>
+  <div class="ssec">
+    <div class="ssec-title">Masculino — Calças (Waist)</div>
     <table class="stbl">
       <thead><tr><th>EU cm</th><th>US/UK pol.</th><th>Brasil</th></tr></thead>
       <tbody>
@@ -557,11 +500,10 @@ display: inline-block; padding: 3px 8px; margin-bottom: 8px;
         <tr><td>100cm</td><td>42"</td><td class="br">50</td></tr>
       </tbody>
     </table>
-    <div class="size-note">Regra rápida: BR = waist cm ÷ 2</div>
+    <div class="snote">Regra: BR = waist cm ÷ 2</div>
   </div>
-
-  <div class="size-section">
-    <div class="size-sec-title">Feminino — Blusas, Vestidos, Calças</div>
+  <div class="ssec">
+    <div class="ssec-title">Feminino — Blusas, Vestidos, Calças</div>
     <table class="stbl">
       <thead><tr><th>Letra</th><th>EU Num</th><th>Brasil</th><th>US</th></tr></thead>
       <tbody>
@@ -574,9 +516,8 @@ display: inline-block; padding: 3px 8px; margin-bottom: 8px;
       </tbody>
     </table>
   </div>
-
-  <div class="size-section">
-    <div class="size-sec-title">Calçados Masculinos</div>
+  <div class="ssec">
+    <div class="ssec-title">Calçados Masculinos</div>
     <table class="stbl">
       <thead><tr><th>EU</th><th>Brasil</th><th>US</th><th>UK</th><th>cm</th></tr></thead>
       <tbody>
@@ -590,7 +531,7 @@ display: inline-block; padding: 3px 8px; margin-bottom: 8px;
         <tr><td class="eu">46</td><td class="br">45</td><td>12</td><td>11</td><td>29</td></tr>
       </tbody>
     </table>
-    <div class="size-note">Regra rápida: BR = EU − 1</div>
+    <div class="snote">Regra: BR = EU − 1</div>
   </div>
 </div>
 
@@ -598,7 +539,7 @@ display: inline-block; padding: 3px 8px; margin-bottom: 8px;
 
 <div class="panel" id="panel-tabela">
   <div class="sec-title">Tabela de Preços</div>
-  <div class="sec-sub">Peças com custo total até €10 valem a pena.</div>
+  <div class="sec-sub">Referência rápida. Até €10 total = vale a pena.</div>
   <table class="reftbl">
     <thead><tr><th>Custo €</th><th>Conv R$</th><th>Mín R$</th><th>Máx R$</th><th>Nota €</th><th>Vale?</th></tr></thead>
     <tbody id="tbod"></tbody>
@@ -606,27 +547,28 @@ display: inline-block; padding: 3px 8px; margin-bottom: 8px;
 </div>
 
 <script>
-// STORAGE
+// ─── STORAGE ────────────────────────────────────────────────────
 function save() {
   try {
     localStorage.setItem('gdm_v', JSON.stringify(vendas));
     localStorage.setItem('gdm_a', JSON.stringify(anuncios));
-    localStorage.setItem('gdm_p', JSON.stringify(peso));
+    localStorage.setItem('gdm_p', JSON.stringify(pesoPecas));
+    localStorage.setItem('gdm_h', JSON.stringify(historico));
+    localStorage.setItem('gdm_r', JSON.stringify(rateioItens));
   } catch(e) {}
 }
 function load() {
   try {
-    var v = localStorage.getItem('gdm_v');
-    var a = localStorage.getItem('gdm_a');
-    var p = localStorage.getItem('gdm_p');
-    if (v) vendas = JSON.parse(v);
-    if (a) anuncios = JSON.parse(a);
-    if (p) peso = JSON.parse(p);
+    var v=localStorage.getItem('gdm_v'); if(v) vendas=JSON.parse(v);
+    var a=localStorage.getItem('gdm_a'); if(a) anuncios=JSON.parse(a);
+    var p=localStorage.getItem('gdm_p'); if(p) pesoPecas=JSON.parse(p);
+    var h=localStorage.getItem('gdm_h'); if(h) historico=JSON.parse(h);
+    var r=localStorage.getItem('gdm_r'); if(r) rateioItens=JSON.parse(r);
   } catch(e) {}
 }
 
-// TABELA
-var TB = [
+// ─── TABELA PREÇOS ──────────────────────────────────────────────
+var TB=[
   {a:5,cv:62,mn:100,mx:150,nt:1},{a:10,cv:92,mn:130,mx:190,nt:2},
   {a:15,cv:123,mn:160,mx:220,nt:5},{a:20,cv:155,mn:195,mx:250,nt:5},
   {a:25,cv:186,mn:230,mx:280,nt:5},{a:30,cv:216,mn:260,mx:310,nt:5},
@@ -635,31 +577,78 @@ var TB = [
   {a:60,cv:402,mn:450,mx:550,nt:15},{a:80,cv:528,mn:580,mx:650,nt:20},
   {a:100,cv:650,mn:720,mx:800,nt:30}
 ];
-var tbod = document.getElementById('tbod');
-TB.forEach(function(r) {
-  var ok = r.a <= 10;
-  tbod.innerHTML += '<tr><td class="' + (ok?'tok':'tno') + '">€' + r.a + '</td>' +
-    '<td>R$' + r.cv + '</td><td class="tmin">R$' + r.mn + '</td>' +
-    '<td class="tmax">R$' + r.mx + '</td><td>€' + r.nt + '</td>' +
-    '<td>' + (ok?'✅':'❌') + '</td></tr>';
+var tbod=document.getElementById('tbod');
+TB.forEach(function(r){
+  var ok=r.a<=10;
+  tbod.innerHTML+='<tr><td class="'+(ok?'tok':'tno')+'">€'+r.a+'</td><td>R$'+r.cv+'</td><td class="tmin">R$'+r.mn+'</td><td class="tmax">R$'+r.mx+'</td><td>€'+r.nt+'</td><td>'+(ok?'✅':'❌')+'</td></tr>';
 });
 
-// STATE
-var vendas = [], anuncios = [], peso = [], cc = null, filtro = 'ativas';
-load();
-
-// TABS
-function go(n) {
-  var ns = ['calc','pecas','lote','peso','tam','tabela'];
-  document.querySelectorAll('.tab').forEach(function(t,i){ t.classList.toggle('active', ns[i]===n); });
-  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
-  document.getElementById('panel-'+n).classList.add('active');
-  if (n==='lote') renderLote();
-  if (n==='pecas') renderPecas();
+// ─── TEMPLATES ──────────────────────────────────────────────────
+var TEMPLATES=[
+  {titulo:'Como funciona o frete?',texto:'O frete é rateado pelo peso de cada peça. Quando o pacote chegar no Brasil eu te informo o valor exato da sua parte do frete. 📦'},
+  {titulo:'Qual o prazo de entrega?',texto:'Após o pagamento, compro no Vinted e a peça vai pro armazém na Europa. Quando tiver 7-12 peças no lote, envio tudo junto. Prazo estimado: 30-45 dias até chegar na sua casa. 🕐'},
+  {titulo:'Como pago?',texto:'PIX! Após confirmar seu interesse eu te mando a chave. Só compro a peça no Vinted após confirmação do pagamento. ✅'},
+  {titulo:'Como funciona a compra?',texto:'Você escolhe a peça, me manda mensagem, confirma o interesse e faz o PIX. Eu compro no Vinted europeu e a peça vem pra um armazém. Quando completar o lote (7-12 peças) envio tudo junto pro Brasil. 🇧🇷'},
+  {titulo:'A peça é original?',texto:'Sim! Todas as peças são compradas diretamente no Vinted, marketplace europeu de segunda mão. São peças originais, usadas ou seminovas, verificadas antes do envio. ✔️'},
+  {titulo:'Aceita troca/devolução?',texto:'Por se tratar de importação, não fazemos trocas nem devoluções. As fotos e descrições são fiéis às peças. Qualquer dúvida, pergunte antes de confirmar! 🙏'},
+  {titulo:'Qual o tamanho no Brasil?',texto:'As peças são europeias, então os tamanhos são diferentes! Exemplo: EU 48 = BR M/46. Me manda suas medidas que te ajudo a acertar o tamanho certo. 📏'},
+  {titulo:'Peça já foi vendida',texto:'Infelizmente essa peça já foi vendida! 😔 Mas fique de olho que sempre chegam novidades. Quer que eu te avise quando chegar algo parecido?'}
+];
+function renderTemplates() {
+  var list=document.getElementById('tmpl-list');
+  list.innerHTML=TEMPLATES.map(function(t,i){
+    return '<div class="tmpl-card">'+
+      '<div class="tmpl-title">'+t.titulo+'</div>'+
+      '<div class="tmpl-text">'+t.texto+'</div>'+
+      '<div class="tmpl-actions">'+
+        '<button class="tbtn tbtn-w" onclick="copiarTmpl('+i+')">📋 Copiar</button>'+
+        '<button class="tbtn tbtn-wa" onclick="wppTmpl('+i+')">📲 WhatsApp</button>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+function copiarTmpl(i) {
+  var t=TEMPLATES[i];
+  var txt='*'+t.titulo+'*\n\n'+t.texto;
+  if(navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(function(){ alert('Copiado!'); }).catch(function(){ alert('Copie manualmente:\n\n'+txt); });
+  } else { alert('Copie manualmente:\n\n'+txt); }
+}
+function wppTmpl(i) {
+  var t=TEMPLATES[i];
+  window.open('https://wa.me/?text='+encodeURIComponent('*'+t.titulo+'*\n\n'+t.texto),'_blank');
 }
 
-// CALCULAR
-function getFaixa(e) { return TB.find(function(f){ return e<=f.a; }) || TB[TB.length-1]; }
+// ─── STATUS ─────────────────────────────────────────────────────
+var STATUS_LABELS=['Interesse','Pago — Comprando','Comprado — Aguardando armazém','No armazém — Pesando','Pronto pra enviar','Enviado','Entregue ✅'];
+var STATUS_CLASSES=['st-0','st-1','st-2','st-3','st-4','st-5','st-6'];
+function proximoStatus(id) {
+  var p=anuncios.find(function(a){ return a.id===id; });
+  if(!p) return;
+  if(p.status<6) p.status++;
+  save(); renderPecas();
+}
+
+// ─── STATE ──────────────────────────────────────────────────────
+var vendas=[], anuncios=[], pesoPecas=[], historico=[], rateioItens=[], cc=null, filtro='ativas';
+load();
+renderTemplates();
+
+// ─── TABS ───────────────────────────────────────────────────────
+function go(n) {
+  var ns=['calc','pecas','lote','rateio','hist','tmpl','peso','tam','tabela'];
+  document.querySelectorAll('.tab').forEach(function(t,i){ t.classList.toggle('active',ns[i]===n); });
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById('panel-'+n).classList.add('active');
+  if(n==='lote') renderLote();
+  if(n==='pecas') renderPecas();
+  if(n==='hist') renderHistorico();
+  if(n==='rateio') renderRateio();
+}
+
+// ─── CALCULAR ───────────────────────────────────────────────────
+function getFaixa(e){ return TB.find(function(f){ return e<=f.a; })||TB[TB.length-1]; }
+
 function onInput() {
   var p=parseFloat(document.getElementById('f-preco').value)||0;
   var fr=parseFloat(document.getElementById('f-frete').value)||0;
@@ -669,10 +658,24 @@ function onInput() {
   if(tot<=8){ el.className='aband ok'; el.textContent='✅ TOTAL €'+tot.toFixed(2)+' — ÓTIMO! PEGA ESSA.'; }
   else if(tot<=10){ el.className='aband wn'; el.textContent='⚠️ TOTAL €'+tot.toFixed(2)+' — NA BORDA DO LIMITE.'; }
   else{ el.className='aband no'; el.textContent='❌ TOTAL €'+tot.toFixed(2)+' — PASSA DE €10. DEIXA PASSAR.'; }
+  calcMargem();
 }
-document.getElementById('f-preco').addEventListener('input', onInput);
-document.getElementById('f-frete').addEventListener('input', onInput);
-document.getElementById('f-taxa').addEventListener('input', onInput);
+document.getElementById('f-preco').addEventListener('input',onInput);
+document.getElementById('f-frete').addEventListener('input',onInput);
+document.getElementById('f-taxa').addEventListener('input',onInput);
+
+function calcMargem() {
+  var venda=parseFloat(document.getElementById('f-venda').value)||0;
+  if(!venda||!cc){ document.getElementById('al-margem').className='aband'; return; }
+  var custo=cc.f.cv;
+  var margem=venda-custo;
+  var pct=Math.round((margem/venda)*100);
+  var el=document.getElementById('al-margem');
+  if(pct>=40){ el.className='aband ok'; el.textContent='✅ MARGEM DE '+pct+'% (R$'+margem+') — EXCELENTE!'; }
+  else if(pct>=25){ el.className='aband wn'; el.textContent='⚠️ MARGEM DE '+pct+'% (R$'+margem+') — OK, MAS DÁ PRA MELHORAR.'; }
+  else if(pct>0){ el.className='aband no'; el.textContent='❌ MARGEM DE APENAS '+pct+'% (R$'+margem+') — MUITO BAIXO!'; }
+  else{ el.className='aband no'; el.textContent='❌ PREJUÍZO DE R$'+Math.abs(margem)+' — NÃO VENDE POR ESSE PREÇO!'; }
+}
 
 function calcular() {
   var nome=document.getElementById('f-nome').value.trim();
@@ -687,11 +690,12 @@ function calcular() {
   document.getElementById('r-cv').textContent='R$'+f.cv;
   document.getElementById('r-mn').textContent='R$'+f.mn;
   document.getElementById('r-mx').textContent='R$'+f.mx;
-  document.getElementById('r-tag').textContent='FAIXA ≤€'+f.a+'  ·  NOTA FISCAL: €'+f.nt;
+  document.getElementById('r-tag').textContent='FAIXA ≤€'+f.a+' · NOTA FISCAL: €'+f.nt;
   document.getElementById('r-nome').textContent=nome;
   if(nome) document.getElementById('fv-p').value=nome;
   document.getElementById('rwrap').classList.add('show');
   document.getElementById('fvenda').classList.remove('show');
+  calcMargem();
 }
 function abrirFV(){ document.getElementById('fvenda').classList.add('show'); document.getElementById('fv-c').focus(); }
 function fecharFV(){ document.getElementById('fvenda').classList.remove('show'); }
@@ -705,8 +709,10 @@ function salvarVenda() {
   document.getElementById('fvenda').classList.remove('show');
   document.getElementById('rwrap').classList.remove('show');
   document.getElementById('al-lim').className='aband';
+  document.getElementById('al-margem').className='aband';
   document.getElementById('f-nome').value='';
   document.getElementById('f-preco').value='';
+  document.getElementById('f-venda').value='';
   document.getElementById('fv-p').value='';
   document.getElementById('fv-c').value='';
   document.getElementById('fv-r').value='';
@@ -717,14 +723,14 @@ function salvarVenda() {
   renderLote();
 }
 
-// LOTE
+// ─── LOTE ───────────────────────────────────────────────────────
 var META=7;
 function renderLote() {
   var n=vendas.length;
   document.getElementById('lnum').textContent=n;
   document.getElementById('pfill').style.width=Math.min(100,(n/META)*100)+'%';
   document.getElementById('lready').classList.toggle('show',n>=META);
-  document.getElementById('lsub').textContent=n>=META?'Monte o pacote e envie! 🎉':'Faltam '+(META-n)+' peça(s)';
+  document.getElementById('lsub').textContent=n>=META?'Monte o pacote e envie! 🎉':'Faltam '+(META-n)+' peça(s) — meta mínima '+META;
   var list=document.getElementById('vlist');
   var tots=document.getElementById('tots');
   if(n===0){ tots.style.display='none'; list.innerHTML='<div class="empty"><div class="empty-icon">📦</div><p>Nenhuma venda ainda.<br>Calcule e registre.</p></div>'; return; }
@@ -739,20 +745,29 @@ function renderLote() {
   list.innerHTML=vendas.map(function(v){
     var m=v.preco-v.cRS;
     return '<div class="vcard"><button class="vdel" onclick="delVenda('+v.id+')">×</button>'+
-      '<div class="vcard-head"><div class="vcard-name">'+v.peca+'</div><div class="vcard-price">R$'+v.preco+'</div></div>'+
-      '<div class="vcard-foot"><div class="vcard-buyer">👤 '+v.comp+' · '+v.data+'</div>'+
-      '<div class="vcard-margin" style="color:'+(m>=0?'#44ee66':'#cc1111')+'">'+(m>=0?'+':'')+'R$'+m+'</div></div></div>';
+      '<div class="vchead"><div class="vcname">'+v.peca+'</div><div class="vcprice">R$'+v.preco+'</div></div>'+
+      '<div class="vcfoot"><div class="vcbuyer">👤 '+v.comp+' · '+v.data+'</div>'+
+      '<div class="vcmargin" style="color:'+(m>=0?'#44ee66':'#cc1111')+'">'+(m>=0?'+':'')+'R$'+m+'</div></div></div>';
   }).join('');
 }
-function delVenda(id){ if(!confirm('Remover esta venda?'))return; vendas=vendas.filter(function(v){ return v.id!==id; }); save(); renderLote(); }
-function limparLote(){ if(!confirm('Limpar todas as vendas? Só após enviar o pacote!'))return; vendas=[]; save(); renderLote(); }
+function delVenda(id){ if(!confirm('Remover?'))return; vendas=vendas.filter(function(v){ return v.id!==id; }); save(); renderLote(); }
+function fecharLote() {
+  if(vendas.length===0){ alert('Lote vazio!'); return; }
+  if(!confirm('Fechar lote e salvar no histórico?')) return;
+  var ar=vendas.reduce(function(s,v){ return s+v.preco; },0);
+  var cu=vendas.reduce(function(s,v){ return s+v.cRS; },0);
+  historico.push({id:Date.now(),data:new Date().toLocaleDateString('pt-BR'),pecas:vendas.length,arrecadado:ar,custo:cu,lucro:ar-cu,itens:vendas.slice()});
+  vendas=[]; save(); renderLote(); renderHistorico();
+  alert('Lote salvo no histórico!');
+}
+function limparLote(){ if(!confirm('Limpar sem salvar?'))return; vendas=[]; save(); renderLote(); }
 renderLote();
 
-// PEÇAS
+// ─── PEÇAS ──────────────────────────────────────────────────────
 function toggleForm(){ var f=document.getElementById('form-peca'); f.classList.toggle('show'); if(f.classList.contains('show')) document.getElementById('np-nome').focus(); }
 function cadastrar() {
   var nome=document.getElementById('np-nome').value.trim();
-  if(!nome){ alert('Digite o nome da peça.'); return; }
+  if(!nome){ alert('Digite o nome.'); return; }
   anuncios.push({
     id:Date.now(),nome:nome,
     tam:document.getElementById('np-tam').value.trim(),
@@ -761,10 +776,11 @@ function cadastrar() {
     custo:parseFloat(document.getElementById('np-custo').value)||0,
     comp:document.getElementById('np-comp').value.trim(),
     tel:document.getElementById('np-tel').value.trim(),
+    peso:parseInt(document.getElementById('np-peso').value)||0,
     link:document.getElementById('np-link').value.trim(),
-    vendida:false,dataVenda:null
+    status:0, vendida:false, dataVenda:null
   });
-  ['np-nome','np-tam','np-tambr','np-preco','np-custo','np-comp','np-tel','np-link'].forEach(function(id){ document.getElementById(id).value=''; });
+  ['np-nome','np-tam','np-tambr','np-preco','np-custo','np-comp','np-tel','np-peso','np-link'].forEach(function(id){ document.getElementById(id).value=''; });
   document.getElementById('form-peca').classList.remove('show');
   save(); renderPecas();
 }
@@ -779,11 +795,11 @@ function wppMsg(p) {
 function marcarVendida(id) {
   var p=anuncios.find(function(a){ return a.id===id; });
   if(!p) return;
-  p.vendida=true; p.dataVenda=new Date().toLocaleDateString('pt-BR');
+  p.vendida=true; p.status=6; p.dataVenda=new Date().toLocaleDateString('pt-BR');
   save(); renderPecas();
   window.open('https://wa.me/?text='+encodeURIComponent(wppMsg(p)),'_blank');
 }
-function reabrir(id){ var p=anuncios.find(function(a){ return a.id===id; }); if(!p||!confirm('Reabrir?'))return; p.vendida=false; p.dataVenda=null; save(); renderPecas(); }
+function reabrir(id){ var p=anuncios.find(function(a){ return a.id===id; }); if(!p||!confirm('Reabrir?'))return; p.vendida=false; p.status=0; p.dataVenda=null; save(); renderPecas(); }
 function deletarPeca(id){ if(!confirm('Remover?'))return; anuncios=anuncios.filter(function(a){ return a.id!==id; }); save(); renderPecas(); }
 function chamarComp(id) {
   var p=anuncios.find(function(a){ return a.id===id; });
@@ -797,24 +813,26 @@ function filtrar(f){ filtro=f; document.getElementById('tab-at').classList.toggl
 function renderPecas() {
   var list=document.getElementById('pecas-list');
   var arr=anuncios.filter(function(a){ return filtro==='ativas'?!a.vendida:a.vendida; });
-  if(arr.length===0){ list.innerHTML='<div class="empty"><div class="empty-icon">'+(filtro==='ativas'?'📋':'🎉')+'</div><p>'+(filtro==='ativas'?'Nenhuma peça ativa.<br>Cadastre o que você anunciou.':'Nenhuma peça vendida ainda.')+'</p></div>'; return; }
+  if(arr.length===0){ list.innerHTML='<div class="empty"><div class="empty-icon">'+(filtro==='ativas'?'📋':'🎉')+'</div><p>'+(filtro==='ativas'?'Nenhuma peça ativa.<br>Cadastre o que você anunciou.':'Nenhuma concluída ainda.')+'</p></div>'; return; }
   list.innerHTML=arr.map(function(p){
     var sold=p.vendida;
-    return '<div class="peca-card'+(sold?' sold':'')+'">'+
-      (sold?'<div class="sold-stamp">VENDIDA · '+p.dataVenda+'</div>':'')+
-      '<div class="peca-head"><div class="peca-name">'+p.nome+'</div><div class="peca-price'+(sold?' sold':'')+'">'+(p.preco?'R$'+p.preco:'—')+'</div></div>'+
-      '<div class="peca-tags">'+
+    var st=p.status||0;
+    return '<div class="pcard'+(sold?' sold':'')+'">'+
+      (sold?'<div class="sold-stamp">VENDIDA · '+p.dataVenda+'</div>':'<div class="status-badge '+STATUS_CLASSES[st]+'" onclick="proximoStatus('+p.id+')">'+STATUS_LABELS[st]+' →</div>')+
+      '<div class="phead"><div class="pname">'+p.nome+'</div><div class="pprice'+(sold?' sold':'')+'">'+(p.preco?'R$'+p.preco:'—')+'</div></div>'+
+      '<div class="ptags">'+
         (p.tam?'<span class="ptag w">EU '+p.tam+'</span>':'')+
         (p.tambr?'<span class="ptag w">BR '+p.tambr+'</span>':'')+
         (p.custo?'<span class="ptag">€'+p.custo+'</span>':'')+
+        (p.peso?'<span class="ptag">'+p.peso+'g</span>':'')+
         (p.comp?'<span class="ptag r">👤 '+p.comp+'</span>':'')+
         (p.tel?'<span class="ptag r">📱 '+p.tel+'</span>':'')+
         (p.link?'<a href="'+p.link+'" target="_blank" style="text-decoration:none;"><span class="ptag w">🔗 Vinted</span></a>':'')+
       '</div>'+
-      '<div class="peca-actions">'+
+      '<div class="pactions">'+
         (!sold
-          ?'<button class="pa pa-red" onclick="marcarVendida('+p.id+')">🔴 VENDIDO!</button>'+(p.tel?'<button class="pa pa-wa" onclick="chamarComp('+p.id+')">📲 CHAMAR</button>':'')
-          :'<button class="pa pa-wa" onclick="(function(){window.open(\'https://wa.me/?text=\'+encodeURIComponent(wppMsg(anuncios.find(function(a){return a.id=='+p.id+';})||{})),\'_blank\');})()"  >📲 WHATSAPP</button><button class="pa pa-gray" onclick="reabrir('+p.id+')">↩ REABRIR</button>'
+          ?'<button class="pa pa-r" onclick="marcarVendida('+p.id+')">🔴 VENDIDO!</button>'+(p.tel?'<button class="pa pa-wa" onclick="chamarComp('+p.id+')">📲 CHAMAR</button>':'')
+          :'<button class="pa pa-wa" onclick="window.open(\'https://wa.me/?text=\'+encodeURIComponent(wppMsg(anuncios.find(function(x){return x.id=='+p.id+';})||{})),\'_blank\')">📲 WHATSAPP</button><button class="pa pa-g" onclick="reabrir('+p.id+')">↩ REABRIR</button>'
         )+
         '<button class="pa-del" onclick="deletarPeca('+p.id+')">🗑</button>'+
       '</div></div>';
@@ -822,38 +840,110 @@ function renderPecas() {
 }
 renderPecas();
 
-// PESO
+// ─── HISTÓRICO ──────────────────────────────────────────────────
+function renderHistorico() {
+  var list=document.getElementById('hist-list');
+  var totalLucro=historico.reduce(function(s,h){ return s+h.lucro; },0);
+  var totalPecas=historico.reduce(function(s,h){ return s+h.pecas; },0);
+  document.getElementById('ht-lotes').textContent=historico.length;
+  document.getElementById('ht-pecas').textContent=totalPecas;
+  document.getElementById('ht-lucro').textContent='R$'+totalLucro;
+  if(historico.length===0){ list.innerHTML='<div class="empty"><div class="empty-icon">📊</div><p>Nenhum lote fechado ainda.<br>Feche o primeiro lote na aba Lote.</p></div>'; return; }
+  var sorted=historico.slice().reverse();
+  list.innerHTML=sorted.map(function(h){
+    return '<div class="hcard">'+
+      '<div class="hchead"><div class="hctitle">Lote · '+h.data+'</div><div class="hcdate">'+h.pecas+' peças</div></div>'+
+      '<div class="hcstats">'+
+        '<div class="hcstat"><div class="hcsv">R$'+h.arrecadado+'</div><div class="hcsl">Arrecadado</div></div>'+
+        '<div class="hcstat"><div class="hcsv">R$'+h.custo+'</div><div class="hcsl">Custo</div></div>'+
+        '<div class="hcstat"><div class="hcsv" style="color:'+(h.lucro>=0?'#44ee66':'#cc1111')+'">R$'+h.lucro+'</div><div class="hcsl">Lucro</div></div>'+
+      '</div></div>';
+  }).join('');
+}
+renderHistorico();
+
+// ─── RATEIO ─────────────────────────────────────────────────────
+function calcRateio() {
+  var custo=parseFloat(document.getElementById('rt-custo').value)||0;
+  var pesoTotal=parseFloat(document.getElementById('rt-peso-total').value)||0;
+  var pgrama=pesoTotal>0?(custo/pesoTotal):0;
+  document.getElementById('rt-pgrama').textContent=pgrama>0?'R$'+pgrama.toFixed(4)+'/g':'—';
+  renderRateio();
+}
+function addRateio() {
+  var nome=document.getElementById('rt-nome').value.trim();
+  var peso=parseInt(document.getElementById('rt-peso').value)||0;
+  var preco=parseFloat(document.getElementById('rt-preco').value)||0;
+  if(!nome||!peso){ alert('Preencha nome e peso.'); return; }
+  rateioItens.push({id:Date.now(),nome:nome,peso:peso,preco:preco});
+  document.getElementById('rt-nome').value='';
+  document.getElementById('rt-peso').value='';
+  document.getElementById('rt-preco').value='';
+  save(); renderRateio();
+}
+function delRateio(id){ rateioItens=rateioItens.filter(function(r){ return r.id!==id; }); save(); renderRateio(); }
+function limparRateio(){ if(!confirm('Limpar rateio?'))return; rateioItens=[]; save(); renderRateio(); }
+function renderRateio() {
+  var custo=parseFloat(document.getElementById('rt-custo').value)||0;
+  var pesoTotal=parseFloat(document.getElementById('rt-peso-total').value)||0;
+  var pgrama=pesoTotal>0?(custo/pesoTotal):0;
+  var list=document.getElementById('rateio-list');
+  var resumo=document.getElementById('rateio-total-box');
+  if(rateioItens.length===0){ list.innerHTML='<div class="empty"><div class="empty-icon">⚖️</div><p>Adicione as peças do lote<br>com o peso de cada uma.</p></div>'; resumo.style.display='none'; return; }
+  var html='';
+  var resumoHtml='';
+  var pesoUsado=0;
+  rateioItens.forEach(function(r){
+    var freteItem=pgrama>0?Math.round(r.peso*pgrama):0;
+    var totalCliente=r.preco+freteItem;
+    pesoUsado+=r.peso;
+    html+='<div class="rateio-card'+(pgrama>0?' calculado':'')+'">'+
+      '<div class="rc-head"><div class="rc-nome">'+r.nome+'</div><button class="vdel" onclick="delRateio('+r.id+')" style="position:static;font-size:16px;color:var(--g);">×</button></div>'+
+      '<div class="rc-peso">'+r.peso+'g'+( r.preco?' · Peça: R$'+r.preco:'')+' '+(pgrama>0?'· Frete: <strong style="color:#44ee66">R$'+freteItem+'</strong>':'· (defina custo e peso total)')+' </div>'+
+      (pgrama>0?'<div class="rc-total">Total cliente: R$'+totalCliente+'</div>':'')+
+    '</div>';
+    if(pgrama>0) resumoHtml+='👤 <strong>'+r.nome+'</strong>: R$'+freteItem+' frete + R$'+r.preco+' peça = <strong>R$'+totalCliente+'</strong>\n';
+  });
+  list.innerHTML=html;
+  if(pgrama>0){
+    resumo.style.display='block';
+    document.getElementById('rateio-resumo').innerHTML=resumoHtml.replace(/\n/g,'<br>');
+  } else { resumo.style.display='none'; }
+}
+renderRateio();
+
+// ─── PESO ───────────────────────────────────────────────────────
 function toggleCP(){ document.getElementById('cpw').style.display=document.getElementById('p-tipo').value==='custom'?'block':'none'; }
 function addPeso() {
   var sel=document.getElementById('p-tipo');
   var g,nome;
   if(sel.value==='custom'){ g=parseInt(document.getElementById('p-cust').value)||0; if(!g){ alert('Digite o peso.'); return; } nome='Peça personalizada'; }
   else{ g=parseInt(sel.value); nome=sel.options[sel.selectedIndex].text.split('(')[0].trim(); }
-  peso.push({id:Date.now(),nome:nome,g:g}); save(); renderPeso();
+  pesoPecas.push({id:Date.now(),nome:nome,g:g}); save(); renderPeso();
 }
-function delPeso(id){ peso=peso.filter(function(p){ return p.id!==id; }); save(); renderPeso(); }
+function delPeso2(id){ pesoPecas=pesoPecas.filter(function(p){ return p.id!==id; }); save(); renderPeso(); }
 function renderPeso() {
   var list=document.getElementById('plist');
-  list.innerHTML=peso.length===0?'':peso.map(function(p){ return '<div class="peso-item"><div><div class="peso-name">'+p.nome+'</div><div class="peso-g">'+p.g+'g</div></div><button class="peso-del" onclick="delPeso('+p.id+')">×</button></div>'; }).join('');
+  list.innerHTML=pesoPecas.length===0?'':pesoPecas.map(function(p){ return '<div class="pitem"><div><div class="piname">'+p.nome+'</div><div class="pig">'+p.g+'g</div></div><button class="pdel2" onclick="delPeso2('+p.id+')">×</button></div>'; }).join('');
   calcPeso();
 }
 function calcPeso() {
-  var tot=peso.reduce(function(s,p){ return s+p.g; },0);
-  var emb=tot+300; var kg=emb/1000; var n=peso.length;
+  var tot=pesoPecas.reduce(function(s,p){ return s+p.g; },0);
+  var emb=tot+300; var kg=emb/1000; var n=pesoPecas.length;
   document.getElementById('pt').textContent=tot>=1000?(tot/1000).toFixed(2)+'kg':tot+'g';
   document.getElementById('pe').textContent=emb>=1000?(emb/1000).toFixed(2)+'kg':emb+'g';
-  if(tot>0){ var eu=(kg/1.5)*10; var rs=eu*6.2; var rb=rs*1.065; document.getElementById('pcr').innerHTML='<span style="font-family:\'Barlow Condensed\',sans-serif;font-size:30px;font-weight:900;letter-spacing:2px;">~€'+eu.toFixed(1)+'</span> <span style="color:var(--gray-light);font-size:13px;">→ ~R$'+rs.toFixed(0)+' / R$'+rb.toFixed(0)+' Braza</span>'; }
-  else{ document.getElementById('pcr').innerHTML='<span style="color:var(--gray);">Adicione peças para calcular.</span>'; }
+  if(tot>0){ var eu=(kg/1.5)*10; var rs=eu*6.2; var rb=rs*1.065; document.getElementById('pcr').innerHTML='<span style="font-family:\'Barlow Condensed\',sans-serif;font-size:30px;font-weight:900;letter-spacing:2px;">~€'+eu.toFixed(1)+'</span> <span style="color:var(--gl);font-size:13px;">→ ~R$'+rs.toFixed(0)+' / R$'+rb.toFixed(0)+' Braza</span>'; }
+  else{ document.getElementById('pcr').innerHTML='<span style="color:var(--g);">Adicione peças para calcular.</span>'; }
   var box=document.getElementById('alf-box'); var rec=document.getElementById('alf-rec');
-  if(tot===0){ box.style.borderLeftColor='var(--border)'; rec.textContent='Adicione peças para ver a recomendação.'; }
+  if(tot===0){ box.style.borderLeftColor='var(--bd)'; rec.textContent='Adicione peças para ver.'; }
   else if(kg<=2&&n<=4){ box.style.borderLeftColor='#22aa44'; rec.innerHTML='<strong style="color:#44ee66">ALFÂNDEGA CURITIBA</strong> — '+kg.toFixed(2)+'kg ≤ 2kg e '+n+' peça(s) ≤ 4 linhas. Mais barata!'; }
-  else if(kg<=2&&n>4){ box.style.borderLeftColor='#cc8800'; rec.innerHTML='<strong style="color:#ffbb33">ALFÂNDEGA SÃO PAULO</strong> — Peso ok ('+kg.toFixed(2)+'kg) mas '+n+' peças passa das 4 linhas de Curitiba.'; }
-  else{ box.style.borderLeftColor='#cc1111'; rec.innerHTML='<strong style="color:#ff4444">SÃO PAULO OBRIGATÓRIO</strong> — '+kg.toFixed(2)+'kg > 2kg. Considere dividir em 2 pacotes.'; }
+  else if(kg<=2&&n>4){ box.style.borderLeftColor='#cc8800'; rec.innerHTML='<strong style="color:#ffbb33">ALFÂNDEGA SÃO PAULO</strong> — Peso ok mas '+n+' peças passa das 4 linhas.'; }
+  else{ box.style.borderLeftColor='#cc1111'; rec.innerHTML='<strong style="color:#ff4444">SÃO PAULO OBRIGATÓRIO</strong> — '+kg.toFixed(2)+'kg > 2kg. Considere 2 pacotes.'; }
 }
 renderPeso();
 
-// TAMANHOS
-var SZ = {
+// ─── TAMANHOS ───────────────────────────────────────────────────
+var SZ={
   'xs':{eu:'44',br:'PP',cat:'Masc. Roupa'},'s':{eu:'46',br:'P',cat:'Masc. Roupa'},
   'm':{eu:'48',br:'M',cat:'Masc. Roupa'},'l':{eu:'50',br:'G',cat:'Masc. Roupa'},
   'xl':{eu:'52',br:'GG',cat:'Masc. Roupa'},'xxl':{eu:'54',br:'XGG',cat:'Masc. Roupa'},
@@ -875,10 +965,10 @@ function buscarTam() {
   var r=SZ[q];
   document.getElementById('sz-title').textContent=r?'EU '+q.toUpperCase()+' — '+r.cat:'Sem resultado para "'+q+'"';
   document.getElementById('sz-boxes').innerHTML=r?
-    '<div class="sz-box"><div class="sz-val" style="color:var(--red)">'+q.toUpperCase()+'</div><div class="sz-lbl">EU Original</div></div>'+
-    '<div class="sz-box"><div class="sz-val" style="color:var(--white)">'+r.br+'</div><div class="sz-lbl">Brasil</div></div>'+
-    '<div class="sz-box"><div class="sz-val" style="font-size:14px;color:var(--gray-light);margin-top:4px;">'+r.cat+'</div><div class="sz-lbl">Categoria</div></div>':
-    '<div style="grid-column:1/-1;text-align:center;color:var(--gray);font-size:12px;padding:8px;">Tenta: XS S M L XL, 44 46 48 50, 30 32 34, 39 41 43...</div>';
+    '<div class="szbox"><div class="szval" style="color:var(--r)">'+q.toUpperCase()+'</div><div class="szlbl">EU Original</div></div>'+
+    '<div class="szbox"><div class="szval">'+r.br+'</div><div class="szlbl">Brasil</div></div>'+
+    '<div class="szbox"><div class="szval" style="font-size:14px;color:var(--gl);margin-top:4px;">'+r.cat+'</div><div class="szlbl">Categoria</div></div>':
+    '<div style="grid-column:1/-1;text-align:center;color:var(--g);font-size:12px;padding:8px;">Tenta: XS S M L XL, 44 46 48, 30 32 34, 39 41...</div>';
   res.classList.add('show');
 }
 </script>
